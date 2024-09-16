@@ -19,3 +19,7 @@ mybatis-plus:
       id-type: auto
 server:
   port: 8030
+
+user:
+  userName: zhangsan
+  age: 18
