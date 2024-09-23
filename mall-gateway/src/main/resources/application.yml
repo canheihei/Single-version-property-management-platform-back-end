@@ -15,5 +15,18 @@ spring:
           uri: http://www.jd.com  # 注意缩进
           predicates:
             - Query=url,jd
+        - id: product_route
+          uri: lb://mall-product
+          predicates:
+            - Path=/app/product/**
+          filters:
+            - RewritePath=/app/(?<segment>/?.*), /$\{segment}
+        - id: app_route
+          uri: lb://renren-fast
+          predicates:
+            - Path=/app/**
+          filters:
+            - RewritePath=/app/(?<segment>/?.*), /renren-fast/$\{segment}
+
 server:
   port: 8070
