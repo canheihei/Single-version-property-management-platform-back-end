@@ -1,15 +1,15 @@
 package com.chhei.mall.product;
 
+
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.chhei.mall.product.entity.BrandEntity;
 import com.chhei.mall.product.service.BrandService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
 import java.util.List;
 
-@SpringBootTest
+@SpringBootTest(classes = MallProductApplication.class)
 class MallProductApplicationTests {
 	@Autowired
 	BrandService brandService;
