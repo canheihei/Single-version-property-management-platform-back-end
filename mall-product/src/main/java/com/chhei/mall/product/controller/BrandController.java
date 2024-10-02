@@ -3,14 +3,16 @@ package com.chhei.mall.product.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import com.chhei.common.valid.groups.AddGroupsInterface;
+import com.chhei.common.valid.groups.UpdateGroupsInterface;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import com.chhei.mall.product.entity.BrandEntity;
 import com.chhei.mall.product.service.BrandService;
 import com.chhei.common.utils.PageUtils;
 import com.chhei.common.utils.R;
-
 
 
 /**
@@ -62,18 +64,36 @@ public class BrandController {
      */
     @RequestMapping("/save")
     //@RequiresPermissions("product:brand:save")
-    public R save(@RequestBody BrandEntity brand){
-		brandService.save(brand);
+    public R save(@Validated(AddGroupsInterface.class) @RequestBody BrandEntity brand){
+        brandService.save(brand);
 
         return R.ok();
     }
+
+    /*@RequestMapping("/save")
+    //@RequiresPermissions("product:brand:save")
+    public R save(@Valid @RequestBody BrandEntity brand, BindingResult result){
+        if(result.hasErrors()){
+            Map<String,String> map = new HashMap<>();
+            List<FieldError> fieldErrors = result.getFieldErrors();
+            for (FieldError fieldError : fieldErrors) {
+                String field = fieldError.getField();
+                String defaultMessage = fieldError.getDefaultMessage();
+                map.put(field,defaultMessage);
+            }
+            return R.error(400,"提交的品牌表单数据不合法").put("data",map);
+        }
+		brandService.save(brand);
+
+        return R.ok();
+    }*/
 
     /**
      * 修改
      */
     @RequestMapping("/update")
     //@RequiresPermissions("product:brand:update")
-    public R update(@RequestBody BrandEntity brand){
+    public R update(@Validated(UpdateGroupsInterface.class) @RequestBody BrandEntity brand){
 		brandService.updateById(brand);
 
         return R.ok();
