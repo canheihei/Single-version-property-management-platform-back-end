@@ -1,19 +1,18 @@
 package com.chhei.mall.product.service.impl;
 
-import com.chhei.mall.product.entity.AttrEntity;
 import org.springframework.stereotype.Service;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.chhei.common.utils.PageUtils;
 import com.chhei.common.utils.Query;
-
 import com.chhei.mall.product.dao.AttrGroupDao;
 import com.chhei.mall.product.entity.AttrGroupEntity;
 import com.chhei.mall.product.service.AttrGroupService;
 import org.springframework.util.StringUtils;
-
 
 @Service("attrGroupService")
 public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEntity> implements AttrGroupService {
