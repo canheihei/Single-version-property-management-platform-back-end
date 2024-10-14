@@ -66,6 +66,5 @@ public class CategoryEntity implements Serializable {
 	//该属性不在该表格中
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@TableField(exist = false)
-	private List<CategoryEntity> childrens;
-
+	private List<CategoryEntity> children;
 }
