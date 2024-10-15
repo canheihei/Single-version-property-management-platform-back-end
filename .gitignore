@@ -17,3 +17,11 @@ buildNumber.properties
 **/.mvn
 **/target
 .idea
+# 安装 git-secrets
+brew install git-secrets
+
+# 设置项目扫描
+git secrets --install
+
+# 为 AWS 或其他云服务的密钥设置检测规则
+git secrets --register-aws
