@@ -25,3 +25,10 @@ git secrets --install
 
 # 为 AWS 或其他云服务的密钥设置检测规则
 git secrets --register-aws
+
+# 忽略可能包含敏感信息的配置文件
+mall-product/src/main/resources/application.yml
+mall-third-party/src/main/resources/application.yml
+
+# 忽略可能含有测试密钥的测试文件
+mall-third-party/src/test/java/com/chhei/mall/third/MallThirdPartyApplicationTests.java
