@@ -2,12 +2,10 @@ package com.chhei.mall.product.controller;
 
 import java.util.Arrays;
 import java.util.Map;
-
 import com.chhei.mall.product.vo.AttrResponseVo;
 import com.chhei.mall.product.vo.AttrVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import com.chhei.mall.product.entity.AttrEntity;
 import com.chhei.mall.product.service.AttrService;
 import com.chhei.common.utils.PageUtils;
@@ -90,8 +88,8 @@ public class AttrController {
     @RequestMapping("/delete")
     //@RequiresPermissions("product:attr:delete")
     public R delete(@RequestBody Long[] attrIds){
-		attrService.removeByIds(Arrays.asList(attrIds));
-
+		//attrService.removeByIds(Arrays.asList(attrIds));
+        attrService.removeByIdsDetails(attrIds);
         return R.ok();
     }
 

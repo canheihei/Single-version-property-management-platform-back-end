@@ -15,6 +15,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -158,6 +159,18 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
                 attrAttrgroupRelationDao.update(relationEntity,new UpdateWrapper<AttrAttrgroupRelationEntity>().eq("attr_id",attr.getAttrId()));
             }else{
                 attrAttrgroupRelationDao.insert(relationEntity);
+            }
+        }
+    }
+
+    @Transactional
+    @Override
+    public void removeByIdsDetails(Long[] attrIds) {
+        this.removeByIds(Arrays.asList(attrIds));
+        for (Long attrId : attrIds) {
+            AttrEntity byId = getById(attrId);
+            if(byId != null && byId.getAttrType() == ProductConstant.AttrEnum.ATTR_TYPE_BASE.getCode()){
+                attrAttrgroupRelationDao.delete(new UpdateWrapper<AttrAttrgroupRelationEntity>());
             }
         }
     }
