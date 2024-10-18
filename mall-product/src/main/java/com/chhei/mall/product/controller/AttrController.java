@@ -26,6 +26,7 @@ public class AttrController {
     @Autowired
     private AttrService attrService;
 
+    //分base和sale两种属性类别
     @GetMapping("/{attrType}/list/{catelogId}")
     public R baseList(@RequestParam Map<String, Object> params
             ,@PathVariable("catelogId")Long catelogId

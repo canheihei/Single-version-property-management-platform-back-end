@@ -1,15 +1,16 @@
 package com.chhei.mall.product.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
+import com.chhei.mall.product.entity.AttrEntity;
+import com.chhei.mall.product.service.AttrAttrgroupRelationService;
 import com.chhei.mall.product.service.CategoryService;
+import com.chhei.mall.product.service.impl.AttrServiceImpl;
+import com.chhei.mall.product.vo.AttrGroupRelationVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.chhei.mall.product.entity.AttrGroupEntity;
 import com.chhei.mall.product.service.AttrGroupService;
@@ -33,6 +34,40 @@ public class AttrGroupController {
 
     @Autowired
     private CategoryService categoryService;
+
+    @Autowired
+    private AttrServiceImpl attrService;
+
+    @Autowired
+    private AttrAttrgroupRelationService relationService;
+
+    //attr/relation/delete
+    @PostMapping("/attr/relation/delete")
+    public R relationDelete(@RequestBody AttrGroupRelationVO[] vos){
+        attrService.deleteRelation(vos);
+        return R.ok();
+    }
+
+    // attr/relation
+    @PostMapping("/attr/relation")
+    public R saveBatch(@RequestBody List<AttrGroupRelationVO> vos){
+        relationService.saveBatch(vos);
+        return R.ok();
+    }
+
+    // /6/noattr/relation?t=1641447927058&page=1&limit=10&key=
+    @GetMapping("/{attrgroupId}/noattr/relation")
+    public R attrNoRelation(@PathVariable("attrgroupId") Long attrgroupId
+            ,@RequestParam Map<String,Object> params){
+        PageUtils pageUtils = attrService.getNoAttrRelation(params,attrgroupId);
+        return R.ok().put("page",pageUtils);
+    }
+
+    @GetMapping("/{attrgroupId}/attr/relation")
+    public R attrRelation(@PathVariable("attrgroupId") Long attrgroupId){
+        List<AttrEntity> list = attrService.getRelationAttr(attrgroupId);
+        return R.ok().put("data",list);
+    }
 
     /**
      * 列表

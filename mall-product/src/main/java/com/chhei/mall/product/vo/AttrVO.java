@@ -38,5 +38,6 @@ public class AttrVO {
 	 */
 	private Integer showDesc;
 
+	/** 规则参数对应的属性组*/
 	private Long attrGroupId;
 }
