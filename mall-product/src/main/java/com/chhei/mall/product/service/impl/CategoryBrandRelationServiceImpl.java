@@ -7,30 +7,28 @@ import com.chhei.mall.product.service.BrandService;
 import com.chhei.mall.product.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.chhei.common.utils.PageUtils;
 import com.chhei.common.utils.Query;
-
 import com.chhei.mall.product.dao.CategoryBrandRelationDao;
 import com.chhei.mall.product.entity.CategoryBrandRelationEntity;
 import com.chhei.mall.product.service.CategoryBrandRelationService;
-
 
 @Service("categoryBrandRelationService")
 public class CategoryBrandRelationServiceImpl extends ServiceImpl<CategoryBrandRelationDao, CategoryBrandRelationEntity> implements CategoryBrandRelationService {
     @Autowired
     BrandService brandService;
+
     @Autowired
     CategoryService categoryService;
 
     @Autowired
     private CategoryBrandRelationDao relationDao;
-
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
@@ -47,10 +45,8 @@ public class CategoryBrandRelationServiceImpl extends ServiceImpl<CategoryBrandR
         // 根据类别编号和品牌编号查询出对应的 类别名称和品牌名称
         Long brandId = categoryBrandRelation.getBrandId();
         Long catelogId = categoryBrandRelation.getCatelogId();
-
         CategoryEntity categoryEntity = categoryService.getById(catelogId);
         BrandEntity brandEntity = brandService.getById(brandId);
-
         categoryBrandRelation.setBrandName(brandEntity.getName());
         categoryBrandRelation.setCatelogName(categoryEntity.getName());
         this.save(categoryBrandRelation);

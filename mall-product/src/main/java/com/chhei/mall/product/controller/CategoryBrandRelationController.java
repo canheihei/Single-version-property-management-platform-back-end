@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.chhei.mall.product.entity.BrandEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -103,4 +104,5 @@ public class CategoryBrandRelationController {
 
         return R.ok();
     }
+
 }

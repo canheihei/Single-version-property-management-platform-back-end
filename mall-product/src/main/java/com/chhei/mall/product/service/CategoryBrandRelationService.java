@@ -2,6 +2,7 @@ package com.chhei.mall.product.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.chhei.common.utils.PageUtils;
+import com.chhei.mall.product.entity.BrandEntity;
 import com.chhei.mall.product.entity.CategoryBrandRelationEntity;
 
 import java.util.List;

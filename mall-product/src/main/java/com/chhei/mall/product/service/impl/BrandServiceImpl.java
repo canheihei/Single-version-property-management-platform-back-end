@@ -15,7 +15,6 @@ import com.chhei.mall.product.service.BrandService;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
-
 @Service("brandService")
 public class BrandServiceImpl extends ServiceImpl<BrandDao, BrandEntity> implements BrandService {
     @Autowired
@@ -42,7 +41,6 @@ public class BrandServiceImpl extends ServiceImpl<BrandDao, BrandEntity> impleme
         this.updateById(brand);
         if(!StringUtils.isEmpty(brand.getName())){
             categoryBrandRelationService.updateBrandName(brand.getBrandId(),brand.getName());
-
         }
     }
 }

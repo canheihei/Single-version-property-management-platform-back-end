@@ -7,14 +7,6 @@ spring:
         server-addr: 192.168.56.100:8848
     gateway:
       routes:
-        - id: route1
-          uri: http://www.baidu.com
-          predicates:
-            - Query=url,baidu
-        - id: route2  # 缺失id补上
-          uri: http://www.jd.com  # 注意缩进
-          predicates:
-            - Query=url,jd
         - id: product_route
           uri: lb://mall-product
           predicates:
@@ -27,6 +19,12 @@ spring:
             - Path=/app/third/**
           filters:
             - RewritePath=/app/third/(?<segment>/?.*), /$\{segment}
+        - id: member_route
+          uri: lb://mall-member
+          predicates:
+            - Path=/app/member/**
+          filters:
+            - RewritePath=/app/(?<segment>/?.*), /$\{segment}
         - id: app_route
           uri: lb://renren-fast
           predicates:
