@@ -9,6 +9,7 @@ import com.chhei.mall.product.service.AttrAttrgroupRelationService;
 import com.chhei.mall.product.service.CategoryService;
 import com.chhei.mall.product.service.impl.AttrServiceImpl;
 import com.chhei.mall.product.vo.AttrGroupRelationVO;
+import com.chhei.mall.product.vo.AttrGroupWithAttrsVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,6 +41,15 @@ public class AttrGroupController {
 
     @Autowired
     private AttrAttrgroupRelationService relationService;
+
+    // app/product/attrgroup/225/withattr?t=1641538390108
+    @GetMapping("/{catelogId}/withattr")
+    public R getAttrgroupWithAttrs(@PathVariable("catelogId") Long catelogId){
+        // 根据三级分类的编号获取对应的属性组和属性组的属性信息
+        List<AttrGroupWithAttrsVo> list = attrGroupService
+                .getAttrgroupWithAttrsByCatelogId(catelogId);
+        return R.ok().put("data",list);
+    }
 
     //attr/relation/delete
     @PostMapping("/attr/relation/delete")

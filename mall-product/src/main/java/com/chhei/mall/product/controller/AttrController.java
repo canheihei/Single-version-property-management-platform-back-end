@@ -1,7 +1,10 @@
 package com.chhei.mall.product.controller;
 
-import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
+
+import com.chhei.mall.product.service.AttrGroupService;
+import com.chhei.mall.product.vo.AttrGroupWithAttrsVo;
 import com.chhei.mall.product.vo.AttrResponseVo;
 import com.chhei.mall.product.vo.AttrVO;
 import org.springframework.beans.factory.annotation.Autowired;

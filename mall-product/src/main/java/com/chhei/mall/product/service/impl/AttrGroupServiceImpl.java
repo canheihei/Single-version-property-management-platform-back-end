@@ -1,9 +1,14 @@
 package com.chhei.mall.product.service.impl;
 
+import com.chhei.mall.product.entity.AttrEntity;
+import com.chhei.mall.product.service.AttrService;
+import com.chhei.mall.product.vo.AttrGroupWithAttrsVo;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -16,6 +21,9 @@ import org.springframework.util.StringUtils;
 
 @Service("attrGroupService")
 public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEntity> implements AttrGroupService {
+    @Autowired
+    AttrService attrService;
+    
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
         IPage<AttrGroupEntity> page = this.page(
@@ -45,5 +53,20 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
         IPage<AttrGroupEntity> page = this.page(
                 new Query<AttrGroupEntity>().getPage(params), wrapper);
         return new PageUtils(page);
+    }
+
+    @Override
+    public List<AttrGroupWithAttrsVo> getAttrgroupWithAttrsByCatelogId(Long catelogId) {
+        // 1.根据三级分类的编号查询出对应的所有的属性组
+        List<AttrGroupEntity> attrGroups = this.list(new QueryWrapper<AttrGroupEntity>().eq("catelog_id", catelogId));
+        List<AttrGroupWithAttrsVo> list = attrGroups.stream().map((group) -> {
+            AttrGroupWithAttrsVo vo = new AttrGroupWithAttrsVo();
+            BeanUtils.copyProperties(group,vo);
+            // 根据属性组找到所有的属性信息
+            List<AttrEntity> attrEntities = attrService.getRelationAttr(group.getAttrGroupId());
+            vo.setAttrs(attrEntities);
+            return vo;
+        }).collect(Collectors.toList());
+        return list;
     }
 }
