@@ -65,14 +65,6 @@
     <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-context:3.0.1" level="project" />
     <orderEntry type="library" name="Maven: com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config:2021.1" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-starter-bootstrap:3.0.1" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-starter-loadbalancer:3.0.1" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-loadbalancer:3.0.1" level="project" />
-    <orderEntry type="library" name="Maven: io.projectreactor:reactor-core:3.4.11" level="project" />
-    <orderEntry type="library" name="Maven: org.reactivestreams:reactive-streams:1.0.3" level="project" />
-    <orderEntry type="library" name="Maven: io.projectreactor.addons:reactor-extra:3.4.5" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-cache:2.4.12" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework:spring-context-support:5.3.12" level="project" />
-    <orderEntry type="library" name="Maven: com.stoyanr:evictor:1.0.0" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-validation:2.4.12" level="project" />
     <orderEntry type="library" name="Maven: org.glassfish:jakarta.el:3.0.4" level="project" />
     <orderEntry type="library" name="Maven: org.hibernate.validator:hibernate-validator:6.1.7.Final" level="project" />
@@ -151,5 +143,13 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-jcl:5.3.12" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.springframework:spring-test:5.3.12" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.xmlunit:xmlunit-core:2.7.0" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-starter-loadbalancer:3.0.1" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-loadbalancer:3.0.1" level="project" />
+    <orderEntry type="library" name="Maven: io.projectreactor:reactor-core:3.4.11" level="project" />
+    <orderEntry type="library" name="Maven: org.reactivestreams:reactive-streams:1.0.3" level="project" />
+    <orderEntry type="library" name="Maven: io.projectreactor.addons:reactor-extra:3.4.5" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-cache:2.4.12" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-context-support:5.3.12" level="project" />
+    <orderEntry type="library" name="Maven: com.stoyanr:evictor:1.0.0" level="project" />
   </component>
 </module>
