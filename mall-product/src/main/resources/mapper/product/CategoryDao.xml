@@ -15,6 +15,9 @@
         <result property="productUnit" column="product_unit"/>
         <result property="productCount" column="product_count"/>
     </resultMap>
+	<select id="queryLeve1Category" resultMap="categoryMap">
+        SELECT * FROM pms_category WHERE parent_cid = 0
+    </select>
 
 
 </mapper>

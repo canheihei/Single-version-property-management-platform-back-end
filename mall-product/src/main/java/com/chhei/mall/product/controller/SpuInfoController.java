@@ -2,21 +2,13 @@ package com.chhei.mall.product.controller;
 
 import java.util.Arrays;
 import java.util.Map;
-
 import com.chhei.mall.product.vo.SpuInfoVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 import com.chhei.mall.product.entity.SpuInfoEntity;
 import com.chhei.mall.product.service.SpuInfoService;
 import com.chhei.common.utils.PageUtils;
 import com.chhei.common.utils.R;
-
-
 
 /**
  * spu信息
@@ -41,6 +33,14 @@ public class SpuInfoController {
         PageUtils page = spuInfoService.queryPageByCondition(params);
 
         return R.ok().put("page", page);
+    }
+
+    //http://localhost:8070/app/product/spuinfo/2/up
+    @PostMapping("/{spuId}/up")
+    public R spuUp(@PathVariable("spuId") Long spuId){
+        spuInfoService.up(spuId);
+
+        return R.ok();
     }
 
 

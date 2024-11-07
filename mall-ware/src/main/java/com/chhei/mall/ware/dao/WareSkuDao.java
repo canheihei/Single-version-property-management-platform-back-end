@@ -15,4 +15,6 @@ import org.apache.ibatis.annotations.Mapper;
 public interface WareSkuDao extends BaseMapper<WareSkuEntity> {
 
 	void addStock(Long skuId, Long wareId, Integer skuNum);
+
+	Long getSkuStock(Long skuId);
 }
