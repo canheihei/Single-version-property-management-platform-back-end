@@ -115,5 +115,6 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-aop:5.3.12" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-context:5.3.12" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-expression:5.3.12" level="project" />
+    <orderEntry type="library" name="Maven: com.alibaba:fastjson:1.2.78" level="project" />
   </component>
 </module>
