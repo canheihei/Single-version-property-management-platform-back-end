@@ -10,7 +10,7 @@ spring:
         - id: product_route
           uri: lb://mall-product
           predicates:
-            - Path=/app/product/**
+            - Path=/app/product/**,/hello
           filters:
             - RewritePath=/app/(?<segment>/?.*), /$\{segment}
         - id: third-route
@@ -41,6 +41,10 @@ spring:
           uri: lb://mall-product
           predicates:
             - Host=chhei.mall.com
+        - id: chheimall_host_route
+          uri: lb://mall-search
+          predicates:
+            - Host=chhei.search.com
 
 server:
   port: 8070

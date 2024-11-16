@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 @Controller
 public class IndexController {
@@ -25,8 +24,7 @@ public class IndexController {
 
     @GetMapping({"/","/home","/index"})
     public String index(Model model){
-
-        // 查询出所有的一级分类的信息
+               // 查询出所有的一级分类的信息
         List<CategoryEntity> list = categoryService.getLeve1Category();
         model.addAttribute("categorys",list);
         // classPath:/templates/

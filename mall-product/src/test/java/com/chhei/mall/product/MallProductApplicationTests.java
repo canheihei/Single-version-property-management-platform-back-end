@@ -1,6 +1,5 @@
 package com.chhei.mall.product;
 
-
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.chhei.mall.product.entity.BrandEntity;
 import com.chhei.mall.product.service.BrandService;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
-
 import java.util.List;
 import java.util.UUID;
 
@@ -34,6 +32,7 @@ class MallProductApplicationTests {
 		System.out.println("redissonClient:"+redissonClient);
 	}
 
+	//测试Redis连接
 	@Test
 	public void testStringRedisTemplate(){
 		// 获取操作String类型的Options对象

@@ -7,6 +7,8 @@ import com.chhei.mall.product.vo.Catalog2VO;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.stereotype.Service;
@@ -103,6 +105,11 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         return paths;
     }
 
+    //@CacheEvict(value = "catagory",key="'getLeve1Category'")
+    /*@Caching(evict = {
+            @CacheEvict(value = "catagory",key="'getLeve1Category'")
+            ,@CacheEvict(value = "catagory",key="'getCatelog2JSON'")
+    })*/
     @CacheEvict(value = "catagory",allEntries = true)
     @Transactional
     @Override
@@ -113,9 +120,13 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         }
     }
 
+    @Cacheable(value = {"catagory"},key = "#root.method.name",sync = true)
     @Override
     public List<CategoryEntity> getLeve1Category() {
+        System.out.println("查询了数据库操作....");
+        long start = System.currentTimeMillis();
         List<CategoryEntity> list = baseMapper.queryLeve1Category();
+        System.out.println("查询消耗时间："+(System.currentTimeMillis()-start));
 
         return list;
     }
@@ -133,13 +144,53 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         return collect;
     }
 
+    @Cacheable(value = "catagory",key = "#root.methodName")
+    @Override
+    public Map<String, List<Catalog2VO>> getCatelog2JSON() {
+        // 获取所有的分类数据
+        List<CategoryEntity> list = baseMapper.selectList(new QueryWrapper<CategoryEntity>());
+        // 获取所有的一级分类的数据
+        List<CategoryEntity> leve1Category = this.queryByParenCid(list,0l);
+        // 把一级分类的数据转换为Map容器 key就是一级分类的编号， value就是一级分类对应的二级分类的数据
+        Map<String, List<Catalog2VO>> map = leve1Category.stream().collect(Collectors.toMap(
+                key -> key.getCatId().toString()
+                , value -> {
+                    // 根据一级分类的编号，查询出对应的二级分类的数据
+                    List<CategoryEntity> l2Catalogs = this.queryByParenCid(list,value.getCatId());
+                    List<Catalog2VO> Catalog2VOs =null;
+                    if(l2Catalogs != null){
+                        Catalog2VOs = l2Catalogs.stream().map(l2 -> {
+                            // 需要把查询出来的二级分类的数据填充到对应的Catelog2VO中
+                            Catalog2VO catalog2VO = new Catalog2VO(l2.getParentCid().toString(), null, l2.getCatId().toString(), l2.getName());
+                            // 根据二级分类的数据找到对应的三级分类的信息
+                            List<CategoryEntity> l3Catelogs = this.queryByParenCid(list,l2.getCatId());
+                            if(l3Catelogs != null){
+                                // 获取到的二级分类对应的三级分类的数据
+                                List<Catalog2VO.Catalog3VO> catalog3VOS = l3Catelogs.stream().map(l3 -> {
+                                    Catalog2VO.Catalog3VO catalog3VO = new Catalog2VO.Catalog3VO(l3.getParentCid().toString(), l3.getCatId().toString(), l3.getName());
+                                    return catalog3VO;
+                                }).collect(Collectors.toList());
+                                // 三级分类关联二级分类
+                                catalog2VO.setCatalog3List(catalog3VOS);
+                            }
+                            return catalog2VO;
+                        }).collect(Collectors.toList());
+                    }
+
+                    return Catalog2VOs;
+                }
+        ));
+
+        return map;
+    }
+
     /**
      * 查询出所有的二级和三级分类的数据
      * 并封装为Map<String, Catalog2VO>对象
      * @return
      */
-    @Override
-    public Map<String, List<Catalog2VO>> getCatelog2JSON() {
+    //@Override
+    public Map<String, List<Catalog2VO>> getCatelog2JSONRedis() {
         String key = "catalogJSON";
         // 从Redis中获取分类的信息
         String catalogJSON = stringRedisTemplate.opsForValue().get(key);
