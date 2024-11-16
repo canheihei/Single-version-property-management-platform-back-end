@@ -1,7 +1,7 @@
 # chhei-mall
 
 #### 介绍
-分布式三高商城系统，I will finish this document after I finish this project. Please wait a moment.
+分布式三高商城系统，I will finish this document after I finish this project. Please wait a moment.And if anyone has any questions, feel free to reach out to me. My email is canheihei01@google.com.
 
 #### 软件架构
 软件架构说明
