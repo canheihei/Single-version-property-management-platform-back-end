@@ -1,7 +1,7 @@
 # chhei-mall
 
 #### 介绍
-分布式三高商城系统
+分布式三高商城系统，I will finish this document after I finish this project. Please wait a moment.
 
 #### 软件架构
 软件架构说明
