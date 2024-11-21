@@ -9,9 +9,8 @@ import java.util.List;
 
 @FeignClient("mall-search")
 public interface SearchFeginService {
-
-    @PostMapping("/search/save/product")
-    public R productStatusUp(@RequestBody List<SkuESModel> skuESModels);
+    @PostMapping({"/search/save/product"})
+    R productStatusUp(@RequestBody List<SkuESModel> skuESModels);
 }
 
 

@@ -6,8 +6,6 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Date;
-
 /**
  * Auto-generated: 2022-01-18 14:49:13
  *

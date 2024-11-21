@@ -72,6 +72,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
     @Autowired
     SearchFeginService searchFeginService;
 
+
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
         IPage<SpuInfoEntity> page = this.page(
@@ -82,6 +83,10 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
         return new PageUtils(page);
     }
 
+    /**
+     * 保存商品的发布信息
+     * @param spuInfoVo
+     */
     @Transactional
     @Override
     public void saveSpuInfo(SpuInfoVO spuInfoVo) {
@@ -196,6 +201,13 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
         }
     }
 
+    /**
+     * SPU信息检索
+     * 分页查询
+     * 分类 品牌 状态 关键字查询
+     * @param params
+     * @return
+     */
     @Override
     public PageUtils queryPageByCondition(Map<String, Object> params) {
         QueryWrapper<SpuInfoEntity> wrapper = new QueryWrapper<>();
@@ -249,33 +261,26 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
         return new PageUtils(iPage);
     }
 
-    private Map<Long,Boolean> getSkusHasStock(List<Long> skuIds){
-        List<SkuHasStockDto> skusHasStock = null;
-        if(skuIds == null && skuIds.size() == 0){
-            return null;
-        }
-        try {
-            // 调用远程接口获取对应的信息
-            skusHasStock = wareSkuFeginService.getSkusHasStock(skuIds);
-            //skusHasStock.stream().collect(Collectors.toMap(item->{return item.getSkuId();},item->{return item.getHasStock();}));
-            Map<Long, Boolean> map = skusHasStock.stream()
-                    .collect(Collectors.toMap(SkuHasStockDto::getSkuId, item -> item.getHasStock()));
-            return map;
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return null;
-    }
-
+    /**
+     * 实现商品上架--》商品相关数据存储到ElasticSearch中
+     * 1.根据SpuID查询出相关的信息
+     *   封装到对应的对象中
+     * 2.将封装的数据存储到ElasticSearch中--》调用mall-search的远程接口
+     * 3.更新SpuID对应的状态--》上架
+     *
+     * @param spuId
+     */
     @Override
     public void up(Long spuId) {
         // 1.根据spuId查询相关的信息 封装到SkuESModel对象中
         List<SkuESModel> skuEs = new ArrayList<>();
         // 根据spuID找到对应的SKU信息
         List<SkuInfoEntity> skus = skuInfoService.getSkusBySpuId(spuId);
+        System.out.println(skus.get(1).getSkuSubtitle()+"----------------");
 
         // 对应的规格参数  根据spuId来查询规格参数信息
         List<SkuESModel.Attrs> attrsModel = getAttrsModel(spuId);
+        System.out.println(attrsModel.get(0).getAttrName()+"--------------");
         // 需要根据所有的skuId获取对应的库存信息---》远程调用
         List<Long> skuIds = skus.stream().map(sku -> {
             return sku.getSkuId();
@@ -323,6 +328,34 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
         }
     }
 
+    /**
+     * 根据skuIds获取对应的库存状态
+     * @param skuIds
+     * @return
+     */
+    private Map<Long,Boolean> getSkusHasStock(List<Long> skuIds){
+        List<SkuHasStockDto> skusHasStock = null;
+        if(skuIds == null && skuIds.size() == 0){
+            return null;
+        }
+        try {
+            // 调用远程接口获取对应的信息
+            skusHasStock = wareSkuFeginService.getSkusHasStock(skuIds);
+            //skusHasStock.stream().collect(Collectors.toMap(item->{return item.getSkuId();},item->{return item.getHasStock();}));
+            Map<Long, Boolean> map = skusHasStock.stream()
+                    .collect(Collectors.toMap(SkuHasStockDto::getSkuId, item -> item.getHasStock()));
+            return map;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * 根据spuId获取对应的规格参数
+     * @param spuId
+     * @return
+     */
     private List<SkuESModel.Attrs> getAttrsModel(Long spuId) {
         // 1. product_attr_value 存储了对应的spu相关的所有的规格参数
         List<ProductAttrValueEntity> baseAttrs = productAttrValueService.baseAttrsForSpuId(spuId);

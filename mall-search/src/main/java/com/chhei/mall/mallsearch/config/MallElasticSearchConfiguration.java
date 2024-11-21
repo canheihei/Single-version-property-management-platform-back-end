@@ -1,4 +1,4 @@
-package com.msb.mall.mallsearch.config;
+package com.chhei.mall.mallsearch.config;
 
 import org.apache.http.HttpHost;
 import org.elasticsearch.client.RequestOptions;

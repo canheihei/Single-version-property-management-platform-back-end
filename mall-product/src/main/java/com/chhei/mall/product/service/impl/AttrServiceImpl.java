@@ -247,7 +247,7 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
 
     @Override
     public List<Long> selectSearchAttrIds(List<Long> attrIds) {
-        List<AttrEntity> list = this.list(new QueryWrapper<AttrEntity>().in("attr_id", attrIds).eq("search_type", 1));
+        List<AttrEntity> list = this.list(new QueryWrapper<AttrEntity>().in("attr_id", attrIds).eq("search_type", 0));
         return list.stream().map(item->{
             return item.getAttrId();
         }).collect(Collectors.toList());

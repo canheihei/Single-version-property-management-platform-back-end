@@ -1,9 +1,9 @@
-package com.msb.mall.mallsearch.controller;
+package com.chhei.mall.mallsearch.controller;
 
 import com.chhei.common.dto.es.SkuESModel;
 import com.chhei.common.exception.BizCodeEnume;
 import com.chhei.common.utils.R;
-import com.msb.mall.mallsearch.service.ElasticSearchSaveService;
+import com.chhei.mall.mallsearch.service.ElasticSearchSaveService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,7 +22,6 @@ import java.util.List;
 @RequestMapping("/search/save")
 @RestController
 public class ElasticSearchSaveController {
-
     @Autowired
     private ElasticSearchSaveService service;
 
@@ -36,7 +35,7 @@ public class ElasticSearchSaveController {
         try {
             b = service.productStatusUp(skuESModels);
         } catch (IOException e) {
-           // e.printStackTrace();
+            // e.printStackTrace();
             log.error("ElasticSearch商品上架错误：{}",e);
             return R.error(BizCodeEnume.PRODUCT_UP_EXCEPTION.getCode(), BizCodeEnume.PRODUCT_UP_EXCEPTION.getMsg());
         }

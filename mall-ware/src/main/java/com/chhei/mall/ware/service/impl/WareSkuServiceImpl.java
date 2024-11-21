@@ -3,6 +3,7 @@ package com.chhei.mall.ware.service.impl;
 import com.chhei.common.dto.SkuHasStockDto;
 import com.chhei.common.utils.R;
 import com.chhei.mall.ware.feign.ProductFeignService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,7 @@ import com.chhei.mall.ware.entity.WareSkuEntity;
 import com.chhei.mall.ware.service.WareSkuService;
 import org.springframework.util.StringUtils;
 
-
+@Slf4j
 @Service("wareSkuService")
 public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> implements WareSkuService {
     @Autowired
@@ -52,6 +53,12 @@ public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> i
         return new PageUtils(page);
     }
 
+    /**
+     * 入库操作
+     * @param skuId 商品编号
+     * @param wareId 仓库编号
+     * @param skuNum  采购商品的数量
+     */
     @Override
     public void addStock(Long skuId, Long wareId, Integer skuNum) {
         // 判断是否有改商品和仓库的入库记录
@@ -82,13 +89,29 @@ public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> i
 
     @Override
     public List<SkuHasStockDto> getSkusHasStock(List<Long> skuIds) {
+        log.info("查询库存的 SKU IDs: {}", skuIds);
+
         List<SkuHasStockDto> list = skuIds.stream().map(skuId -> {
             Long count = baseMapper.getSkuStock(skuId);
+
+            // 防御性处理：确保 `count` 不为 null，避免异常
+            if (count == null) {
+                log.warn("SKU ID: {} 查询库存返回 null，设置为 0", skuId);
+                count = 0L;
+            }
+
+            log.info("SKU ID: {}, 库存数量: {}", skuId, count);
+
             SkuHasStockDto dto = new SkuHasStockDto();
             dto.setSkuId(skuId);
-            dto.setHasStock(count > 0);
+            dto.setHasStock(count > 0); // 库存大于 0 时才设置为有库存
+
             return dto;
         }).collect(Collectors.toList());
+
+        log.info("返回的库存信息: {}", list);
         return list;
     }
+
+
 }

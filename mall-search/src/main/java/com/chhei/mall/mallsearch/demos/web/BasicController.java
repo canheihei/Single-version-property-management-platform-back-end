@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.msb.mall.mallsearch.demos.web;
+package com.chhei.mall.mallsearch.demos.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;

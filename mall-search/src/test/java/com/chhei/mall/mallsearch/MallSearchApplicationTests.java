@@ -1,7 +1,7 @@
-package com.msb.mall.mallsearch;
+package com.chhei.mall.mallsearch;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.msb.mall.mallsearch.config.MallElasticSearchConfiguration;
+import com.chhei.mall.mallsearch.config.MallElasticSearchConfiguration;
 import lombok.Data;
 import lombok.ToString;
 import org.apache.lucene.search.TotalHits;

@@ -1,4 +1,4 @@
-package com.msb.mall.mallsearch;
+package com.chhei.mall.mallsearch;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

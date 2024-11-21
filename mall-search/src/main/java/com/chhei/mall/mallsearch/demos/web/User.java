@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.msb.mall.mallsearch.demos.web;
+package com.chhei.mall.mallsearch.demos.web;
 
 /**
  * @author <a href="mailto:chenxilzx1@gmail.com">theonefx</a>

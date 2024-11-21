@@ -1,4 +1,4 @@
-package com.msb.mall.mallsearch.service;
+package com.chhei.mall.mallsearch.service;
 
 
 import com.chhei.common.dto.es.SkuESModel;

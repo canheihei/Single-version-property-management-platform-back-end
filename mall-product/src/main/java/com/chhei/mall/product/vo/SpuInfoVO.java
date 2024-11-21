@@ -2,9 +2,7 @@
   * Copyright 2022 json.cn 
   */
 package com.chhei.mall.product.vo;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
-
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
