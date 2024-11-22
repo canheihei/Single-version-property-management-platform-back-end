@@ -13,6 +13,12 @@ spring:
             - Path=/app/product/**,/hello
           filters:
             - RewritePath=/app/(?<segment>/?.*), /$\{segment}
+        - id: coupon_route
+          uri: lb://mall-coupon
+          predicates:
+          - Path=/app/coupon/**
+          filters:
+            - RewritePath=/app/(?<segment>/?.*), /$\{segment}
         - id: third-route
           uri: lb://mall-third
           predicates:
@@ -37,11 +43,11 @@ spring:
             - Path=/app/**
           filters:
             - RewritePath=/app/(?<segment>/?.*), /renren-fast/$\{segment}
-        - id: chheimall_host_route
+        - id: chheimall_host_route1
           uri: lb://mall-product
           predicates:
             - Host=chhei.mall.com
-        - id: chheimall_host_route
+        - id: chheimall_host_route3
           uri: lb://mall-search
           predicates:
             - Host=chhei.search.com
