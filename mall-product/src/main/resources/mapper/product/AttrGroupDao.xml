@@ -12,6 +12,29 @@
         <result property="icon" column="icon"/>
         <result property="catelogId" column="catelog_id"/>
     </resultMap>
+    
+    <resultMap id="SpuItemGroupAttrVo" type="com.chhei.mall.product.vo.SpuItemGroupAttrVo">
+        <result column="attr_group_name" property="groupName"/>
+        <collection property="baseAttrs" ofType="com.chhei.mall.product.vo.Attr">
+            <id column="attr_id" property="attrId" />
+            <result column="attr_name" property="attrName"/>
+            <result column="attr_value" property="attrValue" />
+        </collection>
+    </resultMap>
+
+    <select id="getAttrgroupWithSpuId" resultMap="SpuItemGroupAttrVo">
+        SELECT t1.attr_group_id
+             ,t1.attr_group_name
+             ,t2.attr_id
+             ,t3.attr_name
+             ,t4.attr_value
+        FROM `pms_attr_group` t1
+                 LEFT JOIN `pms_attr_attrgroup_relation` t2 ON t1.attr_group_id = t2.attr_group_id
+                 LEFT JOIN `pms_attr` t3 ON t2.attr_id = t3.attr_id
+                 LEFT JOIN `pms_product_attr_value` t4 ON t4.attr_id = t2.attr_id
+        WHERE t1.catelog_id = #{catalogId} AND t4.spu_id = #{spuId}
+
+    </select>
 
 
 </mapper>

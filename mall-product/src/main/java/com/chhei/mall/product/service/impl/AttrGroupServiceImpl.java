@@ -3,6 +3,7 @@ package com.chhei.mall.product.service.impl;
 import com.chhei.mall.product.entity.AttrEntity;
 import com.chhei.mall.product.service.AttrService;
 import com.chhei.mall.product.vo.AttrGroupWithAttrsVo;
+import com.chhei.mall.product.vo.SpuItemGroupAttrVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,9 @@ import org.springframework.util.StringUtils;
 public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEntity> implements AttrGroupService {
     @Autowired
     AttrService attrService;
+
+    @Autowired
+    AttrGroupDao attrGroupDao;
     
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
@@ -68,5 +72,12 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
             return vo;
         }).collect(Collectors.toList());
         return list;
+    }
+
+    @Override
+    public List<SpuItemGroupAttrVo> getAttrgroupWithSpuId(Long spuId, Long catalogId) {
+        //
+        List<SpuItemGroupAttrVo> groupAttrVo = attrGroupDao.getAttrgroupWithSpuId(spuId,catalogId);
+        return groupAttrVo;
     }
 }

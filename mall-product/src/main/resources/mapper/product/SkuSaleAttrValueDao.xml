@@ -12,6 +12,16 @@
         <result property="attrValue" column="attr_value"/>
         <result property="attrSort" column="attr_sort"/>
     </resultMap>
-
+	<select id="getSkuSaleAttrValueBySpuId" resultType="com.chhei.mall.product.vo.SkuItemSaleAttrVo">
+		SELECT
+			pssav.attr_id attr_id,
+			pssav.attr_name attr_name,
+			GROUP_CONCAT( DISTINCT pssav.attr_value) attr_value
+		FROM `pms_sku_info` psi
+				 LEFT JOIN `pms_sku_sale_attr_value` pssav
+						   ON psi.sku_id = pssav.sku_id
+		WHERE psi.spu_id = #{spuId}
+		GROUP BY pssav.attr_id,pssav.attr_name
+	</select>
 
 </mapper>

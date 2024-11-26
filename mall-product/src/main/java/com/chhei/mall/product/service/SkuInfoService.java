@@ -3,9 +3,10 @@ package com.chhei.mall.product.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.chhei.common.utils.PageUtils;
 import com.chhei.mall.product.entity.SkuInfoEntity;
-
+import com.chhei.mall.product.vo.SpuItemVO;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 /**
  * sku信息
@@ -16,10 +17,12 @@ import java.util.Map;
  */
 public interface SkuInfoService extends IService<SkuInfoEntity> {
 
-    PageUtils queryPage(Map<String, Object> params);
+    PageUtils queryPage	(Map<String, Object> params);
 
 	PageUtils queryPageByCondition(Map<String, Object> params);
 
 	List<SkuInfoEntity> getSkusBySpuId(Long spuId);
+
+	SpuItemVO item(Long skuId) throws ExecutionException, InterruptedException;
 }
 

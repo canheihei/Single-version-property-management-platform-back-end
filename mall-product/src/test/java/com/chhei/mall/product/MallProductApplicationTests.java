@@ -2,8 +2,12 @@ package com.chhei.mall.product;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.chhei.mall.product.entity.BrandEntity;
+import com.chhei.mall.product.service.AttrGroupService;
 import com.chhei.mall.product.service.BrandService;
 import com.chhei.mall.product.service.CategoryService;
+import com.chhei.mall.product.service.SkuSaleAttrValueService;
+import com.chhei.mall.product.vo.SkuItemSaleAttrVo;
+import com.chhei.mall.product.vo.SpuItemGroupAttrVo;
 import org.junit.jupiter.api.Test;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +30,12 @@ class MallProductApplicationTests {
 
 	@Autowired
 	RedissonClient redissonClient;
+
+	@Autowired
+	AttrGroupService attrGroupService;
+
+	@Autowired
+	SkuSaleAttrValueService skuSaleAttrValueService;
 
 	@Test
 	public void testRedissonClient(){
@@ -63,6 +73,22 @@ class MallProductApplicationTests {
 		Long[] catelogPath = categoryService.findCatelogPath(166l);
 		for (Long aLong : catelogPath) {
 			System.out.println(aLong);
+		}
+	}
+
+	@Test
+	public void test2(){
+		List<SpuItemGroupAttrVo> attrgroupWithSpuId = attrGroupService.getAttrgroupWithSpuId(6l, 225l);
+		for (SpuItemGroupAttrVo spuItemGroupAttrVo : attrgroupWithSpuId) {
+			System.out.println(spuItemGroupAttrVo);
+		}
+	}
+
+	@Test
+	public void test3(){
+		List<SkuItemSaleAttrVo> skuSaleAttrValueBySpuId = skuSaleAttrValueService.getSkuSaleAttrValueBySpuId(6l);
+		for (SkuItemSaleAttrVo skuItemSaleAttrVo : skuSaleAttrValueBySpuId) {
+			System.out.println(skuItemSaleAttrVo);
 		}
 	}
 }

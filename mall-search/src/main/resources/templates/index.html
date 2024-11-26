@@ -1260,12 +1260,12 @@
                                 <a href="#">关注</a>
                             </div>
                             <p class="da">
-                                <a href="#" >
+                                <a th:href="${'http://chhei.item.com/'+product.skuId+'.html'}" >
                                     <img th:src="${product.getSkuImg()}" class="dim">
                                 </a>
                             </p>
                             <ul class="tab_im">
-                                <li><a href="#" title="黑色">
+                                <li><a th:href="${'http://chhei.item.com/'+product.skuId+'.html'}" title="黑色">
                                     <img th:src="${product.getSkuImg()}"></a></li>
 
                             </ul>
