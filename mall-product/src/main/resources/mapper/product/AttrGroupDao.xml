@@ -35,6 +35,4 @@
         WHERE t1.catelog_id = #{catalogId} AND t4.spu_id = #{spuId}
 
     </select>
-
-
 </mapper>
