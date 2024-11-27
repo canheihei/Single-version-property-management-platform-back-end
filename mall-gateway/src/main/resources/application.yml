@@ -47,6 +47,10 @@ spring:
           uri: lb://mall-product
           predicates:
             - Host=chhei.mall.com
+        - id: chheimall_host_route2
+          uri: lb://mall-product
+          predicates:
+            - Host=chhei.item.com
         - id: chheimall_host_route3
           uri: lb://mall-search
           predicates:
