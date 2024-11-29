@@ -4,9 +4,9 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.chhei.mall</groupId>
-	<artifactId>mall-mall</artifactId>
+	<artifactId>chhei-mall</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>mall-mall</name>
+	<name>chhei-mall</name>
 	<description>分布式三高商城系统-聚合工程</description>
 	<packaging>pom</packaging>
 

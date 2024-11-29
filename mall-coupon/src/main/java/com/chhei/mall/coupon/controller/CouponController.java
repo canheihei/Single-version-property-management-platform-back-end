@@ -14,9 +14,6 @@ import com.chhei.mall.coupon.entity.CouponEntity;
 import com.chhei.mall.coupon.service.CouponService;
 import com.chhei.common.utils.PageUtils;
 import com.chhei.common.utils.R;
-
-
-
 /**
  * 优惠券信息
  *
