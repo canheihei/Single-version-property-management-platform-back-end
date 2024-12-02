@@ -1,16 +1,26 @@
 package com.chhei.mall.third;
 
 import com.chhei.mall.third.utils.HttpUtils;
+import com.chhei.mall.third.utils.SmsComponent;
 import org.apache.http.HttpResponse;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import java.util.HashMap;
 import java.util.Map;
 
 @SpringBootTest
 class MallThirdPartyApplicationTests {
+    @Autowired
+    SmsComponent component;
+
     @Test
-    public void testSendSMS() {
+    public void testSendSMS2(){
+        component.sendSmsCode("13995822817","9966");
+    }
+
+    @Test
+    public void testSendSMS1() {
         String host = "https://gyytz.market.alicloudapi.com";
         String path = "/sms/smsSend";
         String method = "POST";

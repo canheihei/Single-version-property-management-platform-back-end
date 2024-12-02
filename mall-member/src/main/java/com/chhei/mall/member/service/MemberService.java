@@ -3,6 +3,7 @@ package com.chhei.mall.member.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.chhei.common.utils.PageUtils;
 import com.chhei.mall.member.entity.MemberEntity;
+import com.chhei.mall.member.vo.MemberRegisterVo;
 
 import java.util.Map;
 
@@ -16,5 +17,7 @@ import java.util.Map;
 public interface MemberService extends IService<MemberEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+	void register(MemberRegisterVo vo);
 }
 

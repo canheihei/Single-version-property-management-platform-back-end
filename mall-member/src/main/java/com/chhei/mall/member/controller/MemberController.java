@@ -3,12 +3,9 @@ package com.chhei.mall.member.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import com.chhei.mall.member.vo.MemberRegisterVo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.chhei.mall.member.entity.MemberEntity;
 import com.chhei.mall.member.service.MemberService;
@@ -29,6 +26,13 @@ import com.chhei.common.utils.R;
 public class MemberController {
     @Autowired
     private MemberService memberService;
+
+    @PostMapping("/register")
+    public R register(@RequestBody MemberRegisterVo vo){
+        memberService.register(vo);
+
+        return R.ok();
+    }
 
     /**
      * 列表

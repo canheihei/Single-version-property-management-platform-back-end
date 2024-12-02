@@ -1,5 +1,6 @@
 package com.chhei.mall.member.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -15,6 +16,8 @@ import com.chhei.mall.member.service.MemberLevelService;
 
 @Service("memberLevelService")
 public class MemberLevelServiceImpl extends ServiceImpl<MemberLevelDao, MemberLevelEntity> implements MemberLevelService {
+    @Autowired
+    MemberLevelDao memberLevelDao;
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
@@ -26,4 +29,10 @@ public class MemberLevelServiceImpl extends ServiceImpl<MemberLevelDao, MemberLe
         return new PageUtils(page);
     }
 
+    @Override
+    public MemberLevelEntity queryMemberLevelDefault() {
+        MemberLevelEntity level = memberLevelDao.queryMemberLevelDefault();
+
+        return null;
+    }
 }
