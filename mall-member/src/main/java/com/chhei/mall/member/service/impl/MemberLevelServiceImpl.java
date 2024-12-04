@@ -32,7 +32,6 @@ public class MemberLevelServiceImpl extends ServiceImpl<MemberLevelDao, MemberLe
     @Override
     public MemberLevelEntity queryMemberLevelDefault() {
         MemberLevelEntity level = memberLevelDao.queryMemberLevelDefault();
-
-        return null;
+        return level;
     }
 }

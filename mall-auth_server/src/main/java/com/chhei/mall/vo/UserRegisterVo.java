@@ -12,9 +12,9 @@ import javax.validation.constraints.Pattern;
 @Data
 public class UserRegisterVo {
 
-    @NotEmpty(message = "账号不能为空")
-    @Length(min = 3,max = 15,message = "账号必须是3~15位")
-    private String userName; // 账号
+    @NotEmpty(message = "用户名不能为空")
+    @Length(min = 3,max = 15,message = "用户名必须是3~15位")
+    private String userName; // 用户名
 
     @NotEmpty(message = "密码不能为空")
     @Length(min = 3,max = 15,message = "密码必须是3~15位")

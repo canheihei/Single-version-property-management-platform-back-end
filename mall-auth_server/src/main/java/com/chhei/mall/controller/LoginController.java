@@ -1,9 +1,12 @@
 package com.chhei.mall.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.chhei.common.constant.SMSConstant;
 import com.chhei.common.exception.BizCodeEnume;
 import com.chhei.common.utils.R;
+import com.chhei.mall.feign.MemberFeginService;
 import com.chhei.mall.feign.ThirdPartFeginService;
+import com.chhei.mall.vo.LoginVo;
 import com.chhei.mall.vo.UserRegisterVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -15,7 +18,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
@@ -30,6 +35,9 @@ public class LoginController {
 
 	@Autowired
 	private ThirdPartFeginService thirdPartFeginService;
+
+	@Autowired
+	MemberFeginService memberFeginService;
 
 	@ResponseBody
 	@GetMapping("/sms/sendCode")
@@ -85,7 +93,7 @@ public class LoginController {
 				R r = memberFeginService.register(vo);
 				if(r.getCode() == 0){
 					// 注册成功
-					return "redirect:http://msb.auth.com/login.html";
+					return "redirect:http://chhei.auth.com/login.html";
 				}else{
 					// 注册失败
 					map.put("msg",r.getCode()+":"+r.get("msg"));
@@ -95,5 +103,24 @@ public class LoginController {
 			}
 		}
 		//return "redirect:/login.html";
+	}
+
+
+	/**
+	 * 注册的方法
+	 * @return
+	 */
+	@PostMapping("/login")
+	public String login(LoginVo loginVo , RedirectAttributes redirectAttributes){
+		R r = memberFeginService.login(loginVo);
+		if(r.getCode() == 0){
+			// 表示登录成功
+			return "redirect:http://chhei.mall.com/home";
+		}
+
+		redirectAttributes.addAttribute("errors",r.get("msg"));
+
+		// 表示登录失败,重新跳转到登录页面
+		return "redirect:http://chhei.auth.com/login.html";
 	}
 }

@@ -3,6 +3,11 @@ package com.chhei.mall.member.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import com.alibaba.fastjson.JSON;
+import com.chhei.common.exception.BizCodeEnume;
+import com.chhei.mall.member.exception.PhoneExsitExecption;
+import com.chhei.mall.member.exception.UsernameExsitException;
+import com.chhei.mall.member.vo.MemberLoginVO;
 import com.chhei.mall.member.vo.MemberRegisterVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -29,10 +34,33 @@ public class MemberController {
 
     @PostMapping("/register")
     public R register(@RequestBody MemberRegisterVo vo){
-        memberService.register(vo);
+        try {
+            memberService.register(vo);
+        }catch (UsernameExsitException exception){
+            return R.error(BizCodeEnume.USERNAME_EXSIT_EXCEPTION.getCode(),
+                    BizCodeEnume.USERNAME_EXSIT_EXCEPTION.getMsg());
+        }catch (PhoneExsitExecption exsitExecption) {
+            return R.error(BizCodeEnume.PHONE_EXSIT_EXCEPTION.getCode(),
+                    BizCodeEnume.PHONE_EXSIT_EXCEPTION.getMsg());
+        }catch (Exception e){
+            return R.error(BizCodeEnume.UNKNOW_EXCEPTION.getCode(),
+                    BizCodeEnume.UNKNOW_EXCEPTION.getMsg());
+        }
 
         return R.ok();
     }
+
+    @RequestMapping("/login")
+    public R login(@RequestBody MemberLoginVO vo){
+        MemberEntity entity = memberService.login(vo);
+        if(entity != null){
+            return R.ok().put("entity", JSON.toJSONString(entity));
+        }
+
+        return R.error(BizCodeEnume.USERNAME_PHONE_VALID_EXCEPTION.getCode(),
+                BizCodeEnume.USERNAME_PHONE_VALID_EXCEPTION.getMsg());
+    }
+
 
     /**
      * 列表

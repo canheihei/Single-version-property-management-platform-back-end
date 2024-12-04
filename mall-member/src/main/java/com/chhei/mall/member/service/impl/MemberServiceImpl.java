@@ -1,7 +1,10 @@
 package com.chhei.mall.member.service.impl;
 
 import com.chhei.mall.member.entity.MemberLevelEntity;
+import com.chhei.mall.member.exception.PhoneExsitExecption;
+import com.chhei.mall.member.exception.UsernameExsitException;
 import com.chhei.mall.member.service.MemberLevelService;
+import com.chhei.mall.member.vo.MemberLoginVO;
 import com.chhei.mall.member.vo.MemberRegisterVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -34,7 +37,7 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
     }
 
     @Override
-    public void register(MemberRegisterVo vo) {
+    public void register(MemberRegisterVo vo) throws PhoneExsitExecption,UsernameExsitException{
         MemberEntity entity = new MemberEntity();
         // 设置会员等级 默认值
         MemberLevelEntity memberLevelEntity = memberLevelService.queryMemberLevelDefault();
@@ -54,5 +57,26 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
         entity.setPassword(encode);
         // 设置其他的默认值
         this.save(entity);
+    }
+
+    private void checkPhoneUnique(String phone) throws PhoneExsitExecption {
+        int mobile = this.count(new QueryWrapper<MemberEntity>().eq("mobile", phone));
+        if(mobile > 0){
+            throw new PhoneExsitExecption();
+        }
+    }
+
+    private void checkUsernameUnique(String userName) throws UsernameExsitException {
+        int username = this.count(new QueryWrapper<MemberEntity>().eq("username", userName));
+        if(username > 0){
+            throw new UsernameExsitException();
+        }
+    }
+
+    @Override
+    public MemberEntity login(MemberLoginVO vo) {
+
+
+        return null;
     }
 }
