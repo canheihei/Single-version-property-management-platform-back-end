@@ -9,6 +9,7 @@ import com.chhei.mall.member.exception.PhoneExsitExecption;
 import com.chhei.mall.member.exception.UsernameExsitException;
 import com.chhei.mall.member.vo.MemberLoginVO;
 import com.chhei.mall.member.vo.MemberRegisterVo;
+import com.chhei.mall.member.vo.SocialUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -61,6 +62,12 @@ public class MemberController {
                 BizCodeEnume.USERNAME_PHONE_VALID_EXCEPTION.getMsg());
     }
 
+    @RequestMapping("/oauth/login")
+    public R socialLogin(@RequestBody SocialUser vo){
+        MemberEntity entity = memberService.login(vo);
+
+        return R.ok().put("entity", JSON.toJSONString(entity));
+    }
 
     /**
      * 列表

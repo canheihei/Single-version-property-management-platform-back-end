@@ -46,18 +46,18 @@ spring:
         - id: chheimall_host_route1
           uri: lb://mall-product
           predicates:
-            - Host=chhei.mall.com
+            - Host=mall.chhei.com
         - id: chheimall_host_route2
           uri: lb://mall-product
           predicates:
-            - Host=chhei.item.com
+            - Host=item.chhei.com
         - id: chheimall_host_route3
           uri: lb://mall-search
           predicates:
-            - Host=chhei.search.com
+            - Host=search.chhei.com
         - id: chheimall_host_route4
           uri: lb://mall-auth
           predicates:
-            - Host=chhei.auth.com
+            - Host=auth.chhei.com
 server:
   port: 8070

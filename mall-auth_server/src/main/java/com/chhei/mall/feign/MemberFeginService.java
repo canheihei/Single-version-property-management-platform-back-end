@@ -2,6 +2,7 @@ package com.chhei.mall.feign;
 
 import com.chhei.common.utils.R;
 import com.chhei.mall.vo.LoginVo;
+import com.chhei.mall.vo.SocialUser;
 import com.chhei.mall.vo.UserRegisterVo;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,4 +19,7 @@ public interface MemberFeginService {
 
     @RequestMapping("/member/member/login")
     public R login(@RequestBody LoginVo vo);
+
+    @RequestMapping("/member/member/oauth/login")
+    public R socialLogin(@RequestBody SocialUser vo);
 }

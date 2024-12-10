@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.chhei.common.constant.SMSConstant;
 import com.chhei.common.exception.BizCodeEnume;
 import com.chhei.common.utils.R;
+import com.chhei.common.vo.MemberVO;
 import com.chhei.mall.feign.MemberFeginService;
 import com.chhei.mall.feign.ThirdPartFeginService;
 import com.chhei.mall.vo.LoginVo;
@@ -18,7 +19,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -80,7 +80,9 @@ public class LoginController {
 		}else{
 			// 验证码是否正确
 			String code = (String)redisTemplate.opsForValue().get(SMSConstant.SMS_CODE_PERFIX + vo.getPhone());
+			System.out.println(code);
 			code = code.split("_")[0];
+			System.out.println(code);
 			if(!code.equals(vo.getCode())){
 				// 说明验证码不正确
 				map.put("code","验证码错误");
@@ -93,7 +95,7 @@ public class LoginController {
 				R r = memberFeginService.register(vo);
 				if(r.getCode() == 0){
 					// 注册成功
-					return "redirect:http://chhei.auth.com/login.html";
+					return "redirect:http://auth.chhei.com/login.html";
 				}else{
 					// 注册失败
 					map.put("msg",r.getCode()+":"+r.get("msg"));
@@ -111,16 +113,20 @@ public class LoginController {
 	 * @return
 	 */
 	@PostMapping("/login")
-	public String login(LoginVo loginVo , RedirectAttributes redirectAttributes){
+	public String login(LoginVo loginVo ,
+						HttpSession session){
 		R r = memberFeginService.login(loginVo);
 		if(r.getCode() == 0){
+			String entityJson = (String) r.get("entity");
+			MemberVO memberVO = JSON.parseObject(entityJson,MemberVO.class);
+			session.setAttribute("loginUser",memberVO);
+			System.out.println(memberVO);
 			// 表示登录成功
-			return "redirect:http://chhei.mall.com/home";
+			return "redirect:http://mall.chhei.com/home";
 		}
-
-		redirectAttributes.addAttribute("errors",r.get("msg"));
+		session.setAttribute("errors",r.get("msg"));
 
 		// 表示登录失败,重新跳转到登录页面
-		return "redirect:http://chhei.auth.com/login.html";
+		return "redirect:http://auth.chhei.com/login.html";
 	}
 }

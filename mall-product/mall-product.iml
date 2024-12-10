@@ -181,5 +181,7 @@
     <orderEntry type="library" name="Maven: net.bytebuddy:byte-buddy:1.10.22" level="project" />
     <orderEntry type="library" name="Maven: org.jodd:jodd-bean:5.1.6" level="project" />
     <orderEntry type="library" name="Maven: org.jodd:jodd-core:5.1.6" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.session:spring-session-data-redis:2.4.6" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.session:spring-session-core:2.4.6" level="project" />
   </component>
 </module>

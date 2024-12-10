@@ -94,11 +94,13 @@
   						</div>
   					</b>
         <ul>
-          <li>
-            <a href="http://chhei.auth.com/login.html">你好，请登录</a>
+          <li th:if="${session.loginUser != null}">
+            <a href="http://auth.chhei.com/login.html">
+              [[${session.loginUser !=null?session.loginUser.nickname:'你好，请登录'}]]
+            </a>
           </li>
           <li>
-            <a href="http://chhei.auth.com/reg.html" class="li_2">免费注册</a>
+            <a href="http://auth.chhei.com/reg.html" class="li_2">免费注册</a>
           </li>
           <span>|</span>
           <li>
@@ -660,14 +662,14 @@
 <script type="text/javascript">
   function search() {
       var keyword=$("#searchText").val()
-      window.location.href="http://chhei.search.com/list.html?keyword="+keyword;
+      window.location.href="http://search.chhei.com/list.html?keyword="+keyword;
   }
 </script>
 <script type="text/javascript" src="/static/index/js/text.js"></script>
 <script type="text/javascript" src="/static/index/js/header.js"></script>
 <script type="text/javascript" src="/static/index/js/secend.js"></script>
 <script type="text/javascript" src="/static/index/js/zz.js"></script>
-<script type="text/javascript" src="/static/index/jsindex.js"></script>
+<script type="text/javascript" src="/static/index/js/index.js"></script>
 <script type="text/javascript" src="/static/index/js/left,top.js"></script>
 <script type="text/javascript" src="/static/index/js/catalogLoadernew.js"></script>
 </html>
