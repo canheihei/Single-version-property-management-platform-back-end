@@ -9,7 +9,9 @@
 	<name>chhei-mall</name>
 	<description>分布式三高商城系统-聚合工程</description>
 	<packaging>pom</packaging>
-
+	<properties>
+		<java.version>1.8</java.version>
+	</properties>
 	<modules>
 		<module>mall-ware</module>
 		<module>mall-coupon</module>
@@ -23,5 +25,6 @@
 		<module>mall-third-party</module>
 		<module>mall-search</module>
 		<module>mall-auth_server</module>
+		<module>mall-cart</module>
 	</modules>
 </project>

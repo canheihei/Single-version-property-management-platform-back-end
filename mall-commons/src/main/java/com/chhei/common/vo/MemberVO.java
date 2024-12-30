@@ -1,6 +1,7 @@
 package com.chhei.common.vo;
 
 import lombok.Data;
+import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -13,6 +14,7 @@ import java.util.Date;
  * @date 2021-11-24 19:47:00
  */
 @Data
+@ToString
 public class MemberVO implements Serializable{
 	private static final long serialVersionUID = 1L;
 

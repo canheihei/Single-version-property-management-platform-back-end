@@ -1,6 +1,7 @@
 package com.chhei.mall.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.chhei.common.constant.AuthConstant;
 import com.chhei.common.constant.SMSConstant;
 import com.chhei.common.exception.BizCodeEnume;
 import com.chhei.common.utils.R;
@@ -119,7 +120,7 @@ public class LoginController {
 		if(r.getCode() == 0){
 			String entityJson = (String) r.get("entity");
 			MemberVO memberVO = JSON.parseObject(entityJson,MemberVO.class);
-			session.setAttribute("loginUser",memberVO);
+			session.setAttribute(AuthConstant.AUTH_SESSION_REDIS,memberVO);
 			System.out.println(memberVO);
 			// 表示登录成功
 			return "redirect:http://mall.chhei.com/home";

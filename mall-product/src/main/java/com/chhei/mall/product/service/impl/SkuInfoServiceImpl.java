@@ -32,6 +32,9 @@ import org.springframework.util.StringUtils;
 @Service("skuInfoService")
 public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> implements SkuInfoService {
     @Autowired
+    SkuInfoDao skuInfoDao;
+
+    @Autowired
     SkuImagesService skuImagesService;
 
     @Autowired
@@ -149,5 +152,11 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
 
         CompletableFuture.allOf(saleFuture,spuFuture,imageFuture,groupFuture).get();
         return vo;
+    }
+
+    @Override
+    public List<String> getSkuSaleAttrs(Long skuId) {
+
+        return this.skuInfoDao.getSkuSaleAttrs(skuId);
     }
 }

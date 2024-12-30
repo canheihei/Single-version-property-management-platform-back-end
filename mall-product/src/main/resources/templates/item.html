@@ -8,6 +8,7 @@
 	<link rel="stylesheet" href="/static/item/scss/header.css" />
 	<link rel="stylesheet" type="text/css" href="/static/item/bootstrap/css/bootstrap.css"/>
 </head>
+
 <body>
 <div id="max">
 	<header>
@@ -66,6 +67,7 @@
 			</ul>
 		</div>
 	</header>
+
 	<nav>
 		<div class="nav_min">
 			<div class="nav_top">
@@ -96,7 +98,6 @@
 	<div class="box">
 		<div class="box-one ">
 			<div class="boxx">
-
 				<div class="imgbox">
 					<div class="probox">
 						<img class="img1" alt="" th:src="${item.info.skuDefaultImg}">
@@ -108,7 +109,6 @@
 				</div>
 
 				<div class="box-lh">
-
 					<div class="box-lh-one">
 						<ul>
 							<li th:each="img:${item.images}">
@@ -121,7 +121,6 @@
 					<div id="right">
 						>
 					</div>
-
 				</div>
 				<div class="boxx-one">
 					<ul>
@@ -132,7 +131,6 @@
 					</ul>
 				</div>
 			</div>
-
 			<div class="box-two">
 				<div class="box-name" th:text="${item.info.skuTitle}">
 					华为 HUAWEI Mate 10 6GB+128GB 亮黑色 移动联通电信4G手机 双卡双待
@@ -140,7 +138,6 @@
 				<div class="box-hide" th:text="${item.info.skuSubtitle}">预订用户预计11月30日左右陆续发货！麒麟970芯片！AI智能拍照！
 					<a href="/static/item/"><u>华为 HUAWEI Mate 10 Pro 10:08 限时限量抢！</u></a>
 				</div>
-
 				<div class="box-yuyue">
 					<div class="yuyue-one">
 						热卖促销中
@@ -220,30 +217,56 @@
 				</div>
 				<div class="box-btns clear">
 					<div class="box-btns-one">
-						<form id="itemForm" action="http://cart.gmall.com:8087/addToCart" method="post">
-							<input type="text" name="num" id=""  value="1"/>
-							<input type="hidden" name="skuId"  th:value="${skuInfo?.id}" />
-							<div class="box-btns-one1">
-								<div>
-									<button type="button" id="jia">
-										+
-									</button>
-								</div>
-								<div>
-									<button type="button" id="jian">
-										-
-									</button>
-								</div>
+						<input type="text" name="" id="numInput" value="1" />
+						<div class="box-btns-one1">
+
+							<div>
+								<button id="jia">
+									+
+								</button>
 							</div>
-						</form>
+							<div>
+								<button id="jian">
+									-
+								</button>
+							</div>
+
+						</div>
 					</div>
-					<div id="cartBtn"  style="cursor:pointer;"  canClick="1"  onclick="addToCart(this)" class="box-btns-two">
-						放入购物车
+					<div class="box-btns-two">
+						<a href="#" id="addCart" th:attr="skuId=${item.info.skuId}">
+							放入购物车
+						</a>
+					</div>
+					<div class="box-btns-three">
+						<img src="/static/item/img/e4ed3606843f664591ff1f68f7fda12d.png" alt="" /> 分享
+					</div>
+				</div>
+
+				<div class="box-footer-zo">
+					<div class="box-footer clear">
+						<dl>
+							<dt>本地活动</dt>
+							<dd>
+								<a href="/static/item/">
+									·1元500MB激活到账30元 >>
+								</a>
+							</dd>
+						</dl>
+					</div>
+
+					<div class="box-footer">
+						<dl>
+							<dt>温馨提示</dt>
+							<dd>·本商品不能使用 东券 京券</dd>
+							<dd>·请完成预约后及时抢购！</dd>
+						</dl>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+
 	<div class="ShopXiangqing">
 		<div class="allLeft">
 			<!--火热预约-->
@@ -423,44 +446,10 @@
 <script src="/static/item/js/jquery1.9.js" type="text/javascript" charset="utf-8"></script>
 <script src="/static/item/js/js.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
-	function addToCart(obj){
-		var canClick = $(obj).attr("canClick");
-		if(canClick=='0'){
-			return ;
-		}
-		$("#itemForm").submit();
-	}
-	function switchSkuId() {
-		// 被选中属性
-		var checkDivs = $(".redborder div");
-		var valueIds="";
-		// 拼接成属性值串
-		for (var i = 0; i < checkDivs.length; i++) {
-			var saleAttrValueDiv = checkDivs.eq(i);
-			if(i>0){
-				valueIds= valueIds+"|";
-			}
-			valueIds=valueIds+saleAttrValueDiv.attr("value");
-		}
-		//页面上的hashjson
-		var valuesSku = $("#valuesSku").attr("value");
-		var valuesSkuJson=JSON.parse(valuesSku);
-
-		// 看看hash有没有
-		var skuId= valuesSkuJson[valueIds];
-		// 当前sku
-		var skuIdSelf=$("#skuId").val();
-
-		// 判断是否跳转
-		if(skuId){
-			if(skuId==skuIdSelf){
-				$("#cartBtn").attr("class","box-btns-two");
-			}else{
-				window.location.href="/"+skuId+".html";
-			}
-		}else{
-			$("#cartBtn").attr("class","box-btns-two-off");
-		}
-	}
+	$("#addCart").click(function (){
+		var num = $("#numInput").val();
+		var skuId = $(this).attr("skuId");
+		location.href="http://cart.chhei.com/addCart?skuId="+skuId+"&num="+num;
+	});
 </script>
 </html>
