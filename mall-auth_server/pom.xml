@@ -11,7 +11,7 @@
 	<groupId>com.chhei.mall</groupId>
 	<artifactId>mall-auth-server</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>mall-auth_server</name>
+	<name>mall-auth-server</name>
 	<description>认证服务</description>
 	<properties>
 		<java.version>1.8</java.version>

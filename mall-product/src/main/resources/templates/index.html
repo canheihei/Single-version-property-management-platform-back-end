@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,11 +8,8 @@
   <link rel="stylesheet" href="/static/index/css/swiper-3.4.2.min.css">
   <link rel="stylesheet" href="/static/index/css/GL.css">
   <script src="/static/index/js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
-
   <script src="/static/index/js/swiper-3.4.2.jquery.min.js" type="text/javascript" charset="utf-8"></script>
-
   <script src="/static/index/js/swiper-3.4.2.min.js"></script>
-
 </head>
 
 <body>
@@ -95,8 +91,8 @@
   					</b>
         <ul>
           <li th:if="${session.loginUser != null}">
-            <a href="http://auth.chhei.com/login.html">
-              [[${session.loginUser !=null?session.loginUser.nickname:'你好，请登录'}]]
+            <a href="http://auth.chhei.com/login.html" >
+              [[${session.loginUser.nickname}]]
             </a>
           </li>
           <li>
@@ -104,10 +100,8 @@
           </li>
           <span>|</span>
           <li>
-            <a href="#">我的订单</a>
+            <a href="http://order.chhei.com/list.html">我的订单</a>
           </li>
-
-
         </ul>
       </div>
     </div>
@@ -122,7 +116,7 @@
       <div class="header_ico">
         <div class="header_gw">
           <img src="/static/index/img/img_15.png" />
-          <span><a href="/购物车\One_JDshop.html">我的购物车</a></span>
+          <span><a href="http://cart.chhei.com/cart_list">我的购物车</a></span>
           <span>0</span>
         </div>
         <div class="header_ko">

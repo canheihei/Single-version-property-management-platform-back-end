@@ -63,5 +63,9 @@ spring:
           uri: lb://mall-cart
           predicates:
             - Host=cart.chhei.com
+        - id: chheimall_host_route6
+          uri: lb://mall-order
+          predicates:
+            - Host=order.chhei.com
 server:
   port: 8070

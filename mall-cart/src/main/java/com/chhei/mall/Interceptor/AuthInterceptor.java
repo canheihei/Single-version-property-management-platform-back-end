@@ -17,11 +17,13 @@ public class AuthInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		HttpSession session = request.getSession();
 		Object attribute = session.getAttribute(AuthConstant.AUTH_SESSION_REDIS);
-		if(null != attribute){
+		if (null != attribute) {
 			MemberVO memberVO = (MemberVO) attribute;
 			threadLocal.set(memberVO);
+			return true;
 		}
-
-		return true;
+		session.setAttribute(AuthConstant.AUTH_SESSION_MSG,"请先登录");
+		response.sendRedirect("http://auth.chhei.com/login.html");
+		return false;
 	}
 }

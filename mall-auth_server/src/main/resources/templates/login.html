@@ -36,7 +36,7 @@
 				</div>
 				<div class="si_cen">
 					<h2 class="act btn1">扫码登录</h2>
-					<span>|</span>
+					<span th:if="${session.msg != null}">[[${session.msg}]]</span>
 					<h2 class="btn1">账户登录</h2>
 				</div>
 				<div class="si_bom tab">

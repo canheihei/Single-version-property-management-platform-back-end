@@ -16,11 +16,13 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ThreadPoolExecutor;
+import java.util.stream.Collectors;
 
 @Service
 public class CartServiceImpl implements ICartService {
@@ -98,5 +100,18 @@ public class CartServiceImpl implements ICartService {
 		String cartKey = CartConstant.CART_PREFIX + memberVO.getId();
 		BoundHashOperations<String, Object, Object> hashOperations = redisTemplate.boundHashOps(cartKey);
 		return hashOperations;
+	}
+
+	public List<CartItem> getUserCartItems() {
+		BoundHashOperations<String, Object, Object> operations = getCartKeyOperation();
+		List<Object> values = operations.values();
+		List<CartItem> list = values.stream().map(item -> {
+			String json = (String) item;
+			CartItem cartItem = JSON.parseObject(json, CartItem.class);
+			return cartItem;
+		}).filter(item -> {
+			return item.isCheck();
+		}).collect(Collectors.toList());
+		return list;
 	}
 }

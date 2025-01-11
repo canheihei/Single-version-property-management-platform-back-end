@@ -56,12 +56,16 @@
 				</li>
 			</ul>
 			<ul class="header_ul_right">
-				<li style="border: 0;">
+				<li th:if="${session.loginUser != null}" style="border: 0;">
 					<a href="http://auth.chhei.com/login.html" class="aa">
 						[[${session.loginUser !=null?session.loginUser.nickname:'你好，请登录:'}]]
 					</a>
 				</li>
-				<li><a href="http://auth.chhei.com/reg.html" style="color: red;">免费注册</a> |</li>
+				<li>
+					<a href="http://auth.chhei.com/reg.html" style="color: red;">
+						免费注册
+					</a>
+				</li>
 				<li><a href="javascript:;" class="aa">我的订单</a> |</li>
 
 			</ul>
