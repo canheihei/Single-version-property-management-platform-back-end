@@ -1,4 +1,4 @@
-package com.chhei.mall.order.vo;
+package com.chhei.mall.ware.vo;
 
 import lombok.Data;
 
@@ -29,5 +29,5 @@ public class OrderItemVo {
     private BigDecimal totalPrice;
 
     // 商品是否有货
-    private boolean hasStock = true;
+    private boolean hasStack = true;
 }

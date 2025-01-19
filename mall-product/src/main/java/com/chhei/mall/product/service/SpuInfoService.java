@@ -3,8 +3,10 @@ package com.chhei.mall.product.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.chhei.common.utils.PageUtils;
 import com.chhei.mall.product.entity.SpuInfoEntity;
+import com.chhei.mall.product.vo.OrderItemSpuInfoVO;
 import com.chhei.mall.product.vo.SpuInfoVO;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -23,5 +25,7 @@ public interface SpuInfoService extends IService<SpuInfoEntity> {
 	PageUtils queryPageByCondition(Map<String, Object> params);
 
 	void up(Long spuId);
+
+	List<OrderItemSpuInfoVO> getOrderItemSpuInfoBySpuId(Long[] spuIds);
 }
 

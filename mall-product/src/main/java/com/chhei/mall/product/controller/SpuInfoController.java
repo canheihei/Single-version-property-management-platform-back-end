@@ -1,7 +1,10 @@
 package com.chhei.mall.product.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
+
+import com.chhei.mall.product.vo.OrderItemSpuInfoVO;
 import com.chhei.mall.product.vo.SpuInfoVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -43,10 +46,16 @@ public class SpuInfoController {
         return R.ok();
     }
 
+    // /product/spuinfo/getOrderItemSpuInfoBySpuId/{spuIds}
+    @RequestMapping("/getOrderItemSpuInfoBySpuId/{spuIds}")
+    public List<OrderItemSpuInfoVO> getOrderItemSpuInfoBySpuId(@PathVariable("spuIds") Long[] spuIds){
+        return spuInfoService.getOrderItemSpuInfoBySpuId(spuIds);
+    }
 
     /**
      * 信息
      */
+
     @RequestMapping("/info/{id}")
     //@RequiresPermissions("product:spuinfo:info")
     public R info(@PathVariable("id") Long id){

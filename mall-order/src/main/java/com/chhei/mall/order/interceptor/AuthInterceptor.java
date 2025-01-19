@@ -23,7 +23,7 @@ public class AuthInterceptor implements HandlerInterceptor {
             return true;
         }
         // 通过HttpSession获取当前登录的用户信息
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false);
         Object attribute = session.getAttribute(AuthConstant.AUTH_SESSION_REDIS);
         if(attribute != null){
             MemberVO memberVO = (MemberVO) attribute;

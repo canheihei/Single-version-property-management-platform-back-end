@@ -20,9 +20,9 @@ public class CartController {
 	@Autowired
 	private ICartService cartService;
 
-	@GetMapping(value = "/{memberId}/getUserCartItems" )
+	@GetMapping(value = "/getUserCartItems" )
 	@ResponseBody
-	public List<CartItem> getUserCartItems(@PathVariable("memberId") Long memberId){
+	public List<CartItem> getUserCartItems(){
 		return cartService.getUserCartItems();
 	}
 

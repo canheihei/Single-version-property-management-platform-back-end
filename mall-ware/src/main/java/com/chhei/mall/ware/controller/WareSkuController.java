@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.chhei.common.dto.SkuHasStockDto;
+import com.chhei.common.exception.BizCodeEnume;
+import com.chhei.common.exception.NoStockExecption;
+import com.chhei.mall.ware.vo.WareSkuLockVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +30,17 @@ import com.chhei.common.utils.R;
 public class WareSkuController {
     @Autowired
     private WareSkuService wareSkuService;
+
+    @PostMapping("/lock/order")
+    public R orderLockStock(@RequestBody WareSkuLockVO vo){
+        try {
+            Boolean flag = wareSkuService.orderLockStock(vo);
+        }catch (NoStockExecption e){
+            // 表示锁定库存失败
+            return R.error(BizCodeEnume.NO_STOCK_EXCEPTION.getCode(),BizCodeEnume.NO_STOCK_EXCEPTION.getMsg());
+        }
+        return R.ok();
+    }
 
     @PostMapping("/hasStock")
     public List<SkuHasStockDto> getSkusHasStock(@RequestBody List<Long> skuIds){

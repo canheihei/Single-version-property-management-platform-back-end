@@ -1,6 +1,5 @@
 package com.chhei.mall.order.vo;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,6 +22,20 @@ public class OrderConfirmVo {
     // 发票信息
     // 优惠信息
 
+    //Integer countNum;
+
+    @Getter @Setter
+    private String orderToken;
+
+    public Integer getCountNum() {
+        int count = 0;
+        if (items != null) {
+            for (OrderItemVo item : items) {
+                count += item.getCount();
+            }
+        }
+        return count;
+    }
 
     // BigDecimal total ;// 总的金额
     public BigDecimal getTotal(){
