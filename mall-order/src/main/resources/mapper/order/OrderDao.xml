@@ -48,6 +48,9 @@
         <result property="commentTime" column="comment_time"/>
         <result property="modifyTime" column="modify_time"/>
     </resultMap>
+    <select id="getOrderByOrderSn" resultType="com.chhei.mall.order.entity.OrderEntity">
+        SELECT * FROM oms_order WHERE order_sn = #{orderSn}
+    </select>
 
 
 </mapper>

@@ -88,9 +88,12 @@
               <p>请输入6位数字支付密码</p>
               <input type="password"><span>忘记支付密码？</span>
             </li>
-            <li>
-              <button>立即支付</button>
-            </li>
+            <form action="/orderPay" method="get">
+              <input type="hidden" name="orderSn" th:value="${orderResponseVO.orderEntity.orderSn}">
+              <li>
+                <input type="submit" value="立即支付">
+              </li>
+            </form>
           </ul>
         </div>
       </div>
@@ -100,7 +103,10 @@
             <img src="static/order/pay/img\weixin.png" alt="">微信支付
           </li>
 		  <li>
-            <img src="static/order/pay/img\zhifubao.png" style="weight:auto;height:30px;" alt="">支付宝
+            <img src="static/order/pay/img\zhifubao.png" style="weight:auto;height:30px;" alt="">
+            <a th:href="'/payOrder?orderSn='+${orderResponseVO.orderEntity.orderSn}">
+              支付宝
+            </a>
           </li>
         </ul>
       </div>

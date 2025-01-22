@@ -13,12 +13,15 @@ import com.chhei.mall.order.fegin.ProductService;
 import com.chhei.mall.order.fegin.WareFeignService;
 import com.chhei.mall.order.interceptor.AuthInterceptor;
 import com.chhei.mall.order.service.OrderItemService;
+import com.chhei.mall.order.utils.OrderMsgProducer;
 import com.chhei.mall.order.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -59,6 +62,9 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
 
 	@Autowired
 	StringRedisTemplate redisTemplate;
+
+	@Autowired
+	OrderMsgProducer orderMsgProducer;
 
 	@Autowired
 	OrderService orderService;
@@ -159,8 +165,9 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
 
 		lockWareSkuStock(responseVO, orderCreateTO);
 		// 5.同步更新用户的会员积分
-		// int i = 1 / 0;
+		//int i = 1 / 0;
 		// 订单成功后需要给 消息中间件发送延迟30分钟的关单消息
+		orderMsgProducer.sendOrderMessage(orderCreateTO.getOrderEntity().getOrderSn());
 		return responseVO;
 	}
 
@@ -210,6 +217,12 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
 		createTO.setOrderEntity(orderEntity);
 
 		List<OrderItemEntity> orderItemEntities = buildOrderItems(orderEntity.getOrderSn());
+		BigDecimal totalAmount = new BigDecimal(0);
+		for(OrderItemEntity orderItemEntity : orderItemEntities){
+			BigDecimal total = orderItemEntity.getSkuPrice().multiply(new BigDecimal(orderItemEntity.getSkuQuantity()));
+			totalAmount = totalAmount.add(total);
+		}
+		orderEntity.setTotalAmount(totalAmount);
 		createTO.setOrderItemEntities(orderItemEntities);
 
 		return createTO;
@@ -292,5 +305,19 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
 		orderEntity.setReceiverProvince(memberAddressVo.getProvince());
 
 		return orderEntity;
+	}
+
+	@Override
+	public PayVo getOrderPay(String orderSn) {
+		// 根据订单号查询相关的订单信息
+		OrderEntity orderEntity = this.getBaseMapper().getOrderByOrderSn(orderSn);
+		// 通过订单信息封装 PayVO对象
+		PayVo payVo = new PayVo();
+		payVo.setOut_trader_no(orderSn);
+		payVo.setTotal_amount(orderEntity.getTotalAmount().setScale(2, RoundingMode.UP).toString());
+		// 订单名称和订单描述
+		payVo.setSubject(orderEntity.getOrderSn());
+		payVo.setBody(orderEntity.getOrderSn());
+		return payVo;
 	}
 }

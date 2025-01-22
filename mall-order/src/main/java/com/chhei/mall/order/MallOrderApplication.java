@@ -13,7 +13,7 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
 @EnableRedisHttpSession
 @EnableFeignClients(basePackages = "com.chhei.mall.order.fegin")
 @EnableDiscoveryClient
-@SpringBootApplication
+@SpringBootApplication()
 @MapperScan("com.chhei.mall.order.dao")
 @EnableAspectJAutoProxy(exposeProxy = true)
 public class MallOrderApplication {

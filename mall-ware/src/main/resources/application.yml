@@ -8,6 +8,9 @@ spring:
     nacos:
       discovery:
         server-addr: 192.168.56.100:8848
+    #alibaba:
+      #seata:
+        #tx-service-group: mall-ware-group
   application:
     name: mall-ware
   jackson:

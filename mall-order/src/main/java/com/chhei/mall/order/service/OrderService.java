@@ -7,6 +7,7 @@ import com.chhei.mall.order.entity.OrderEntity;
 import com.chhei.mall.order.vo.OrderConfirmVo;
 import com.chhei.mall.order.vo.OrderResponseVO;
 import com.chhei.mall.order.vo.OrderSubmitVO;
+import com.chhei.mall.order.vo.PayVo;
 
 import java.util.Map;
 
@@ -24,5 +25,7 @@ public interface OrderService extends IService<OrderEntity> {
 	OrderConfirmVo confirmOrder();
 
 	OrderResponseVO submitOrder(OrderSubmitVO vo) throws NoStockExecption;
+
+	PayVo getOrderPay(String orderSn);
 }
 
