@@ -28,4 +28,6 @@ public class SpuItemVO {
     // 5.获取SPU的规格参数
     List<SpuItemGroupAttrVo> baseAttrs;
 
+    SeckillVO seckillVO;
+
 }

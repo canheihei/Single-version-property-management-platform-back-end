@@ -1,14 +1,12 @@
 package com.chhei.mall.coupon.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
+import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.chhei.mall.coupon.entity.SeckillSessionEntity;
 import com.chhei.mall.coupon.service.SeckillSessionService;
@@ -30,6 +28,12 @@ public class SeckillSessionController {
     @Autowired
     private SeckillSessionService seckillSessionService;
 
+    @GetMapping("/getLates3DaysSession")
+    public R getLates3DaysSession(){
+        List<SeckillSessionEntity> lates3DaysSession = seckillSessionService.getLates3DaysSession();
+        String json = JSON.toJSONString(lates3DaysSession);
+        return R.ok().put("data",json);
+    }
     /**
      * 列表
      */

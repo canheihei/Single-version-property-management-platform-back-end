@@ -22,9 +22,9 @@ public class AlipayTemplate {
     // 私钥 pkcs8格式的
     public static String RSA_PRIVATE_KEY = "MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCpNSryMUXg9QnqrVyzq7YtwoYAfiSpgvbQExhhuZivCgZiwh9R2IXcNVYvCQBFJNml3UAriZhKdb8i9R69SOTZZdnw0XYtMDsrftIsBomXXCVcWmAE7nrggfivG0F1pN4IvvCPcXeSZa9CfpMDgEjFsPqashitYobkv/2sikTsH8iDuaiXM29h8fd59f9PBIsvBJJ8ees5z3af3VrmopI7VQwYK2d+zFTTXfSOVclQq4ZyFRUwsqy9haUabOey9NBJdYtTTNYN9VjWgqtIndr+cHiSj5p2hQHaTgyEX4AzQyRDcbF6547Koa57z3RpcT18WVxkHxSWeImpyYw9EuAZAgMBAAECggEAMl6eYyxhxd6Lzi0/PEjwWVzfsQPb/A39VOFqT6UFG44baoio9B9FcdD6z9OZHfwjQinDsXIrQHcep9RaCzTI0yJrpzFjQX5rDr6Y5/wmN0V55a0NikpHj8+A7PdrHA8w/V+BkuHPG2hjrKKrNs6YWykc4LIFgI+k4jF43UTn0XYCq6mDnyUO0T07bEr15jARm8aHQcuyroHR+inyM23du9sJ4f52ljZykiI9P9Q1i/fexI+fmWEDJosbbsU0YGxnezxF4o6Jt7urook4trX4jjzQhhgSOCjffTAR5OrxLQEn2YQ3NtxSakpT2qlasQkwxtdDOTEQ2nuNAeb2Jh7ogQKBgQD5vQw+THJpxvSkOzOYt1ZcOYu4nS0JV1V3D1NVsOdhgsqSFGLHXkWkhduvnUVHwViFkJwqwI5VYk564MEZmElfTubE9ng3LCd53cmANNPNiSGO6SKL+F75QqlhsSB+3o5p4LCmD+IivChTxRHBDqnZtpm+GI+g2SZUpC4OhnkSUQKBgQCtczsyQHUSRwvoh2lkBMPnPDmTXNqHmgJsRMk2OrQg4tYrKdH8seftOKWq9ykGxgnCUmIe2Q8Cw35rJGRJlqaPpmHh5SaoHdHeUBDzwVV1ctLEaMPvKsujws7JzoY3xn80abU8+rpYvu5Sww9a5/zkJWHYvDksYyCV+bt0uTl3SQKBgQDnMC/uWByueUSt6DQqksY6l/cVT0OK2zM+BYzyzdJUvZxDQOX0g/vagyRM3T1uYLlO5AD9vsXEmz3lmLyJsiVyOnt9KGE/Sfu9YCiSK9VK90B+qKmXg7R/8UsWKb/YUrTppNxCzn9cAm0ep1d5LdbkuZp3lQsZLwzB3D7aqXfZEQKBgGrd85wboMYZJhonzGSGlxlSvvqvnCkuV83Td9HEy5TzjhdcFfhGuOotG83BqPJ2dC7ZSYFOJXSDdNGYw32fp5IcZnSjFnVAoj0CQd+dwAS0MW44SniCeqO0dGpcp8+XqmplsvgWV1g0k2xEqKJPCz6aVbYPCn7xuHMPQlNBiEmZAoGBAOPAmyAwd1/NlBhlpxDoWQ+3PrwsnBh2vl4lCuIs0p7RIsSydu7BE+tyrAsiuhoxG9c5iVRTkai1IZfkKuHOc/iXxLnTrubqPC+fTQRfkHB4f7EJ/ApKmBLMEC/SVaauSrWsVmCQOyDnRNJtvBJG5uOVK5bd7x2L8wew2iFpj/IK";
     // 服务器异步通知页面路径 需http://或者https://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
-    public static String notify_url = "http://localhost:8080/payed/notify";
+    public static String notify_url = "http://order.chhei.com/payed/notify";
     // 页面跳转同步通知页面路径 需http://或者https://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问 商户可以自定义同步跳转地址
-    public static String return_url = "http://localhost:8030/orderPay";
+    public static String return_url = "http://order.chhei.com/orderPay/returnUrl";
     // 请求网关地址
     public static String URL = "https://openapi-sandbox.dl.alipaydev.com/gateway.do";
     // 编码

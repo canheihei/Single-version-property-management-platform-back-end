@@ -6,10 +6,7 @@ import java.math.BigDecimal;
 
 @Data
 public class SeckillVO {
-
-
     private Long promotionSessionId;
-
 
     private Long skuId;
 
@@ -20,8 +17,6 @@ public class SeckillVO {
     private BigDecimal seckillLimit;
 
     private Integer seckillSort;
-
-
 
     private Long startTime;
     private Long endTime;

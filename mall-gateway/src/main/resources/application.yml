@@ -13,6 +13,12 @@ spring:
             - Path=/app/product/**,/hello
           filters:
             - RewritePath=/app/(?<segment>/?.*), /$\{segment}
+        - id: coupon
+          uri: lb://mall-coupon
+          predicates:
+            - Path=/app/coupon/**
+          filters:
+            - RewritePath=/app/(?<segment>/?.*), /$\{segment}
         - id: coupon_route
           uri: lb://mall-coupon
           predicates:
@@ -47,6 +53,10 @@ spring:
           uri: lb://mall-product
           predicates:
             - Host=mall.chhei.com
+        - id: chheimall_seckill_route2
+          uri: lb://mall-seckill
+          predicates:
+            - Host=seckill.chhei.com
         - id: chheimall_host_route2
           uri: lb://mall-product
           predicates:

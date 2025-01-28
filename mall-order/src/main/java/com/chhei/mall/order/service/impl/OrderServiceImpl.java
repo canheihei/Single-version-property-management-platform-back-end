@@ -2,6 +2,7 @@ package com.chhei.mall.order.service.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.chhei.common.constant.OrderConstant;
+import com.chhei.common.dto.SeckillOrderDto;
 import com.chhei.common.exception.NoStockExecption;
 import com.chhei.common.utils.R;
 import com.chhei.common.vo.MemberVO;
@@ -319,5 +320,37 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
 		payVo.setSubject(orderEntity.getOrderSn());
 		payVo.setBody(orderEntity.getOrderSn());
 		return payVo;
+	}
+
+
+	@Override
+	public void updateOrderStatus(String orderSn,Integer status) {
+		this.getBaseMapper().updateOrderStatus(orderSn,status);
+	}
+
+	@Override
+	public void handleOrderComplete(String orderSn) {
+		this.updateOrderStatus(orderSn,OrderConstant.OrderStateEnum.TO_SEND_GOODS.getCode());
+
+	}
+
+	@Transactional
+	@Override
+	public void quickCreateOrder(SeckillOrderDto orderDto) {
+		OrderEntity orderEntity = new OrderEntity();
+		orderEntity.setOrderSn(orderDto.getOrderSN());
+		orderEntity.setStatus(OrderConstant.OrderStateEnum.FOR_THE_PAYMENT.getCode());
+		orderEntity.setMemberId(orderDto.getMemberId());
+		orderEntity.setTotalAmount(orderDto.getSeckillPrice().multiply(new BigDecimal(orderDto.getNum())));
+		this.save(orderEntity);
+		OrderItemEntity itemEntity = new OrderItemEntity();
+		// TODO 根据SKUID查询对应的SKU信息和SPU信息
+		itemEntity.setOrderSn(orderDto.getOrderSN());
+		itemEntity.setSkuPrice(orderDto.getSeckillPrice());
+		itemEntity.setSkuId(orderDto.getSkuId());
+		itemEntity.setRealAmount(orderDto.getSeckillPrice().multiply(new BigDecimal(orderDto.getNum())));
+		itemEntity.setSkuQuantity(orderDto.getNum());
+
+		orderItemService.save(itemEntity);
 	}
 }

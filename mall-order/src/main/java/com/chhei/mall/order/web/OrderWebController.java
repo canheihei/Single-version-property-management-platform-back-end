@@ -1,5 +1,6 @@
 package com.chhei.mall.order.web;
 
+import com.chhei.common.constant.OrderConstant;
 import com.chhei.common.exception.NoStockExecption;
 import com.chhei.mall.order.config.AlipayTemplate;
 import com.chhei.mall.order.service.OrderService;
@@ -7,6 +8,7 @@ import com.chhei.mall.order.vo.OrderConfirmVo;
 import com.chhei.mall.order.vo.OrderResponseVO;
 import com.chhei.mall.order.vo.OrderSubmitVO;
 import com.chhei.mall.order.vo.PayVo;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -65,10 +67,18 @@ public class OrderWebController {
 	}
 
 
-	@GetMapping("/orderPay")
-	public String orderPay(@RequestParam("orderSn") String orderSn){
-		System.out.println("orderSn=" + orderSn);
+	@GetMapping("/orderPay/returnUrl")
+	public String orderPay(@RequestParam(value = "orderSn",required = false) String orderSn,
+						   @RequestParam(value = "out_trade_no",required = false) String out_trade_no){
+		// TODO 完成相关的支付操作
+		System.out.println("orderSn = " + orderSn);
+		if(StringUtils.isNotBlank(orderSn)){
+			orderService.handleOrderComplete(orderSn);
 
+		}else{
+			//orderService.updateOrderStatus(out_trade_no,OrderConstant.OrderStateEnum.TO_SEND_GOODS.getCode());
+			orderService.handleOrderComplete(out_trade_no);
+		}
 		return "list";
 	}
 

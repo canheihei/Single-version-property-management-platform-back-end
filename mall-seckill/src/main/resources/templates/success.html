@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script type="text/javascript" src="/static/cart/js/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="/static/cart/bootstrap/js/bootstrap.js"></script>
+    <script type="text/javascript" src="/static/cart/js/swiper.min.js"></script>
+    <script src="js/swiper.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/cart/css/swiper.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/cart/bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="/static/cart/css/success.css" />
+</head>
+
+<body>
+<!-- 头部 -->
+<div class="alert-info">
+    <div class="hd_wrap_top">
+        <ul class="hd_wrap_left">
+            <li class="hd_home">
+                <i class="glyphicon glyphicon-home"></i>
+                <a href="http://mall.chhei.com/home">chhei商城首页</a>
+            </li>
+        </ul>
+
+        <ul class="hd_wrap_right">
+            <li th:if="${session.loginUser == null}">
+                <a href="http://auth.chhei.com/login.html" style="color: red;">你好，请登录</a>
+            </li>
+            <li th:if="${session.loginUser != null}">
+                <span style="color: red">[[${session.loginUser.nickname}]]</span>
+            </li>
+            <li class="spacer"></li>
+            <li>
+                <a href="/javascript:;">我的订单</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<!-- 导航栏 -->
+<div class="nav-tabs-justified">
+    <div class="nav_wrap">
+        <div class="nav_top">
+            <div class="nav_top_one">
+                <a href="http://mall.chhei.com/home">
+                    <img src="/static/cart/img/logo1.jpg" style="height: 60px;width:180px;" />
+                </a>
+            </div>
+            <div class="nav_top_two">
+                <input type="text" />
+                <button>搜索</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 主体内容 -->
+<div class="main">
+    <div class="success-wrap">
+        <div class="w" id="result">
+            <div class="m succeed-box">
+                <div class="mc success-cont">
+                    <div class="mc success-cont" th:if="${orderSn!=null}">
+                        <h1>恭喜您!秒杀成功，订单号[[${orderSn}]]</h1>
+                        <h2>正在准备订单数据...10秒后跳转到支付页面</h2>
+                        <a href="#">去支付</a>
+                    </div>
+                    <div class="mc success-cont" th:if="${orderSn==null}">
+                        <h1>很遗憾~没有抢购到!欢迎下次再来参与....</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 底部按钮 -->
+<div class="success-btns success-btns-new">
+    <div class="success-ad">
+        <a href="/#none"></a>
+    </div>
+    <div class="clr"></div>
+    <div class="bg_shop">
+        <a class="btn-tobback" href="'http://item.chhei.com/'+${item.skuId}+'.html'">查看商品详情</a>
+        <a class="btn-addtocart" href="http://cart.chhei.com/cart_list" id="GotoShoppingCart">
+            <b></b>去购物车结算
+        </a>
+    </div>
+</div>
+
+<script type="text/javascript" src="/static/cart/js/success.js"></script>
+</body>
+</html>
