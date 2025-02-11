@@ -2,6 +2,9 @@ package com.chhei.mall.coupon.service.impl;
 
 import com.chhei.mall.coupon.entity.SeckillSkuRelationEntity;
 import com.chhei.mall.coupon.service.SeckillSkuRelationService;
+import org.apache.skywalking.apm.toolkit.trace.Tag;
+import org.apache.skywalking.apm.toolkit.trace.Tags;
+import org.apache.skywalking.apm.toolkit.trace.Trace;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +44,11 @@ public class SeckillSessionServiceImpl extends ServiceImpl<SeckillSessionDao, Se
         return new PageUtils(page);
     }
 
+    @Trace
+    @Tags({
+            @Tag(key="getLates3DaysSession",value = "returnedObj")
+            //,@Tag(key="param",value = "arg[0]")
+    })
     @Override
     public List<SeckillSessionEntity> getLates3DaysSession() {
         List<SeckillSessionEntity> list = this.list(new QueryWrapper<SeckillSessionEntity>().

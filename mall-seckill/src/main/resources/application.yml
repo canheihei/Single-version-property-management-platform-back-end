@@ -1,14 +1,13 @@
-# 数据库的连接新
 spring:
   cloud:
     nacos:
       discovery:
         server-addr: 192.168.56.100:8848
-#    sentinel:
-#      transport:
-#        port: 8719
-#        dashboard: localhost:8080
-#        client-ip: localhost
+    sentinel:
+      transport:
+        port: 8719
+        dashboard: 192.168.56.100:8858
+        client-ip: 192.168.56.1
   application:
     name: mall-seckill
   redis:
@@ -36,10 +35,10 @@ rocketmq:
     group: seckill-order-producer
   consumer:
     group: seckill-order-consumer
-#management:
-#  endpoints:
-#    web:
-#      exposure:
-#        include: '*'
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
 

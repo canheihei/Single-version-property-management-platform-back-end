@@ -5,6 +5,7 @@ import com.alibaba.fastjson.TypeReference;
 import com.chhei.mall.product.service.CategoryBrandRelationService;
 import com.chhei.mall.product.vo.Catalog2VO;
 import org.apache.commons.lang.StringUtils;
+import org.apache.skywalking.apm.toolkit.trace.Trace;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -120,6 +121,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         }
     }
 
+    @Trace
     @Cacheable(value = {"catagory"},key = "#root.method.name",sync = true)
     @Override
     public List<CategoryEntity> getLeve1Category() {

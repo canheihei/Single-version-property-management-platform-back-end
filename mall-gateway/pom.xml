@@ -51,6 +51,11 @@
 			<artifactId>spring-cloud-starter-loadbalancer</artifactId>
 			<version>3.0.4</version>
 		</dependency>
+		<dependency>
+			<groupId>com.alibaba.cloud</groupId>
+			<artifactId>spring-cloud-alibaba-sentinel-gateway</artifactId>
+			<version>2021.1</version>
+		</dependency>
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>

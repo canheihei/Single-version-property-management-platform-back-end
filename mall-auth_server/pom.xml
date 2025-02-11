@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.chhei.mall</groupId>
-	<artifactId>mall-auth-server</artifactId>
+	<artifactId>mall-auth_server</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>mall-auth-server</name>
 	<description>认证服务</description>

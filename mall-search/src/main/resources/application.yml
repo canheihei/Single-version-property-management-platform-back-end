@@ -3,6 +3,11 @@ spring:
     nacos:
       discovery:
         server-addr: 192.168.56.100:8848
+    sentinel:
+      transport:
+        port: 8719
+        dashboard: 192.168.56.100:8858
+        client-ip: 192.168.56.1
   application:
     name: mall-search
   jackson:
@@ -18,3 +23,9 @@ spring:
     port: 6379
 server:
   port: 8090
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

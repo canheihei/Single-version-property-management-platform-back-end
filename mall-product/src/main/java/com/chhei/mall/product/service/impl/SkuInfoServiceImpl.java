@@ -10,6 +10,9 @@ import com.chhei.mall.product.vo.SeckillVO;
 import com.chhei.mall.product.vo.SkuItemSaleAttrVo;
 import com.chhei.mall.product.vo.SpuItemGroupAttrVo;
 import com.chhei.mall.product.vo.SpuItemVO;
+import org.apache.skywalking.apm.toolkit.trace.Tag;
+import org.apache.skywalking.apm.toolkit.trace.Tags;
+import org.apache.skywalking.apm.toolkit.trace.Trace;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +32,7 @@ import com.chhei.common.utils.Query;
 
 import com.chhei.mall.product.dao.SkuInfoDao;
 import com.chhei.mall.product.entity.SkuInfoEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 
@@ -135,6 +139,11 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
         return list;
     }
 
+    @Trace
+    @Tags({
+            @Tag(key="item",value = "returnedObj")
+            ,@Tag(key="itemParam",value = "arg[0]")
+    })
     @Override
     public SpuItemVO item(Long skuId) throws ExecutionException, InterruptedException {
         SpuItemVO vo = new SpuItemVO();
